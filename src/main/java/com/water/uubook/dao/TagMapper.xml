@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.water.uubook.dao.ITTagMapper" >
-  <resultMap id="BaseResultMap" type="com.water.uubook.model.ITTag" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
+<mapper namespace="com.water.uubook.dao.TagMapper" >
+  <resultMap id="BaseResultMap" type="com.water.uubook.model.Tag" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="parent" property="parent" jdbcType="VARCHAR" />
-    <result column="createOn" property="createOn" jdbcType="BIGINT" />
+    <result column="weight" property="weight" jdbcType="REAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,15 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, description, parent, createOn
+    id, category_id, name, description, weight, create_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.water.uubook.model.ITTagCriteria" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.water.uubook.model.TagCriteria" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from it_tag
+    from tag
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -83,33 +84,38 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from it_tag
-    where id = #{id,jdbcType=VARCHAR}
+    from tag
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from it_tag
-    where id = #{id,jdbcType=VARCHAR}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tag
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.water.uubook.model.ITTagCriteria" >
-    delete from it_tag
+  <delete id="deleteByExample" parameterType="com.water.uubook.model.TagCriteria" >
+    delete from tag
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.water.uubook.model.ITTag" >
-    insert into it_tag (id, name, description, 
-      parent, createOn)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{parent,jdbcType=VARCHAR}, #{createOn,jdbcType=BIGINT})
+  <insert id="insert" parameterType="com.water.uubook.model.Tag" >
+    insert into tag (id, category_id, name, 
+      description, weight, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{weight,jdbcType=REAL}, #{createTime,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.water.uubook.model.ITTag" >
-    insert into it_tag
+  <insert id="insertSelective" parameterType="com.water.uubook.model.Tag" >
+    insert into tag
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
       </if>
       <if test="name != null" >
         name,
@@ -117,16 +123,19 @@
       <if test="description != null" >
         description,
       </if>
-      <if test="parent != null" >
-        parent,
+      <if test="weight != null" >
+        weight,
       </if>
-      <if test="createOn != null" >
-        createOn,
+      <if test="createTime != null" >
+        create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -134,25 +143,28 @@
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="parent != null" >
-        #{parent,jdbcType=VARCHAR},
+      <if test="weight != null" >
+        #{weight,jdbcType=REAL},
       </if>
-      <if test="createOn != null" >
-        #{createOn,jdbcType=BIGINT},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.water.uubook.model.ITTagCriteria" resultType="java.lang.Integer" >
-    select count(*) from it_tag
+  <select id="countByExample" parameterType="com.water.uubook.model.TagCriteria" resultType="java.lang.Integer" >
+    select count(*) from tag
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update it_tag
+    update tag
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.categoryId != null" >
+        category_id = #{record.categoryId,jdbcType=INTEGER},
       </if>
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
@@ -160,11 +172,11 @@
       <if test="record.description != null" >
         description = #{record.description,jdbcType=VARCHAR},
       </if>
-      <if test="record.parent != null" >
-        parent = #{record.parent,jdbcType=VARCHAR},
+      <if test="record.weight != null" >
+        weight = #{record.weight,jdbcType=REAL},
       </if>
-      <if test="record.createOn != null" >
-        createOn = #{record.createOn,jdbcType=BIGINT},
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -172,49 +184,54 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update it_tag
-    set id = #{record.id,jdbcType=VARCHAR},
+    update tag
+    set id = #{record.id,jdbcType=INTEGER},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
-      parent = #{record.parent,jdbcType=VARCHAR},
-      createOn = #{record.createOn,jdbcType=BIGINT}
+      weight = #{record.weight,jdbcType=REAL},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.water.uubook.model.ITTag" >
-    update it_tag
+  <update id="updateByPrimaryKeySelective" parameterType="com.water.uubook.model.Tag" >
+    update tag
     <set >
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="parent != null" >
-        parent = #{parent,jdbcType=VARCHAR},
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=REAL},
       </if>
-      <if test="createOn != null" >
-        createOn = #{createOn,jdbcType=BIGINT},
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.water.uubook.model.ITTag" >
-    update it_tag
-    set name = #{name,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.water.uubook.model.Tag" >
+    update tag
+    set category_id = #{categoryId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      parent = #{parent,jdbcType=VARCHAR},
-      createOn = #{createOn,jdbcType=BIGINT}
-    where id = #{id,jdbcType=VARCHAR}
+      weight = #{weight,jdbcType=REAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <select resultMap="BaseResultMap" parameterType="com.water.uubook.model.ITTagCriteria" id="selectByExampleWithRowbounds" >
+  <select resultMap="BaseResultMap" parameterType="com.water.uubook.model.TagCriteria" id="selectByExampleWithRowbounds" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from it_tag
+    from tag
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -223,10 +240,11 @@
     </if>
   </select>
   <insert id="insertBatch" >
-    insert into it_tag (id, name, description, parent, createOn) values 
+    insert into tag (id, category_id, name, description, weight, create_time) values 
     <foreach collection="list" item="item" index="index" separator="," >
-      (#{item.id,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
-        #{item.parent,jdbcType=VARCHAR}, #{item.createOn,jdbcType=BIGINT})
+      (#{item.id,jdbcType=INTEGER}, #{item.categoryId,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, 
+        #{item.description,jdbcType=VARCHAR}, #{item.weight,jdbcType=REAL}, #{item.createTime,jdbcType=TIMESTAMP}
+        )
     </foreach>
   </insert>
 </mapper>

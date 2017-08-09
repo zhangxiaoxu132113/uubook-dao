@@ -13,8 +13,6 @@ public class ITArticle implements Serializable {
 
     private Integer category;
 
-    private Integer origin;
-
     private String reference;
 
     private String descryptUrl;
@@ -24,6 +22,12 @@ public class ITArticle implements Serializable {
     private Long createOn;
 
     private Integer module;
+
+    private Integer origin;
+
+    private String tags;
+
+    private Integer viewHits;
 
     private String content;
 
@@ -69,14 +73,6 @@ public class ITArticle implements Serializable {
         this.category = category;
     }
 
-    public Integer getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(Integer origin) {
-        this.origin = origin;
-    }
-
     public String getReference() {
         return reference;
     }
@@ -115,6 +111,30 @@ public class ITArticle implements Serializable {
 
     public void setModule(Integer module) {
         this.module = module;
+    }
+
+    public Integer getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(Integer origin) {
+        this.origin = origin;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags == null ? null : tags.trim();
+    }
+
+    public Integer getViewHits() {
+        return viewHits;
+    }
+
+    public void setViewHits(Integer viewHits) {
+        this.viewHits = viewHits;
     }
 
     public String getContent() {

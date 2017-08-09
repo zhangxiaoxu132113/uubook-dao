@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.water.uubook.dao.ITArticleMapper" >
-  <resultMap id="BaseResultMap" type="com.water.uubook.model.ITArticle" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
+<mapper namespace="com.water.uubook.dao.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.water.uubook.model.Article" >
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="author" property="author" jdbcType="VARCHAR" />
@@ -16,7 +16,7 @@
     <result column="tags" property="tags" jdbcType="VARCHAR" />
     <result column="view_hits" property="viewHits" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.water.uubook.model.ITArticle" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.water.uubook.model.Article" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -84,7 +84,7 @@
   <sql id="Blob_Column_List" >
     content
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.water.uubook.model.ITArticleCriteria" >
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.water.uubook.model.ArticleCriteria" >
     select
     <if test="distinct" >
       distinct
@@ -92,7 +92,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from it_article
+    from article
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -100,13 +100,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.water.uubook.model.ITArticleCriteria" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.water.uubook.model.ArticleCriteria" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from it_article
+    from article
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -114,38 +114,38 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from it_article
-    where id = #{id,jdbcType=VARCHAR}
+    from article
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from it_article
-    where id = #{id,jdbcType=VARCHAR}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from article
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.water.uubook.model.ITArticleCriteria" >
-    delete from it_article
+  <delete id="deleteByExample" parameterType="com.water.uubook.model.ArticleCriteria" >
+    delete from article
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.water.uubook.model.ITArticle" >
-    insert into it_article (id, title, description, 
+  <insert id="insert" parameterType="com.water.uubook.model.Article" >
+    insert into article (id, title, description, 
       author, category, reference, 
       descrypt_url, release_time, create_on, 
       module, origin, tags, 
       view_hits, content)
-    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{author,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, #{reference,jdbcType=VARCHAR}, 
       #{descryptUrl,jdbcType=VARCHAR}, #{releaseTime,jdbcType=VARCHAR}, #{createOn,jdbcType=BIGINT}, 
       #{module,jdbcType=INTEGER}, #{origin,jdbcType=INTEGER}, #{tags,jdbcType=VARCHAR}, 
       #{viewHits,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.water.uubook.model.ITArticle" >
-    insert into it_article
+  <insert id="insertSelective" parameterType="com.water.uubook.model.Article" >
+    insert into article
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -192,7 +192,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
@@ -235,17 +235,17 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.water.uubook.model.ITArticleCriteria" resultType="java.lang.Integer" >
-    select count(*) from it_article
+  <select id="countByExample" parameterType="com.water.uubook.model.ArticleCriteria" resultType="java.lang.Integer" >
+    select count(*) from article
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update it_article
+    update article
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
+        id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
@@ -292,8 +292,8 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update it_article
-    set id = #{record.id,jdbcType=VARCHAR},
+    update article
+    set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       author = #{record.author,jdbcType=VARCHAR},
@@ -312,8 +312,8 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update it_article
-    set id = #{record.id,jdbcType=VARCHAR},
+    update article
+    set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       author = #{record.author,jdbcType=VARCHAR},
@@ -330,8 +330,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.water.uubook.model.ITArticle" >
-    update it_article
+  <update id="updateByPrimaryKeySelective" parameterType="com.water.uubook.model.Article" >
+    update article
     <set >
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
@@ -373,10 +373,10 @@
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.water.uubook.model.ITArticle" >
-    update it_article
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.water.uubook.model.Article" >
+    update article
     set title = #{title,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
@@ -390,10 +390,10 @@
       tags = #{tags,jdbcType=VARCHAR},
       view_hits = #{viewHits,jdbcType=INTEGER},
       content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.water.uubook.model.ITArticle" >
-    update it_article
+  <update id="updateByPrimaryKey" parameterType="com.water.uubook.model.Article" >
+    update article
     set title = #{title,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
@@ -406,9 +406,9 @@
       origin = #{origin,jdbcType=INTEGER},
       tags = #{tags,jdbcType=VARCHAR},
       view_hits = #{viewHits,jdbcType=INTEGER}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <select resultMap="ResultMapWithBLOBs" parameterType="com.water.uubook.model.ITArticleCriteria" id="selectByExampleWithBLOBsWithRowbounds" >
+  <select resultMap="ResultMapWithBLOBs" parameterType="com.water.uubook.model.ArticleCriteria" id="selectByExampleWithBLOBsWithRowbounds" >
     select
     <if test="distinct" >
       distinct
@@ -416,7 +416,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from it_article
+    from article
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -424,13 +424,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select resultMap="BaseResultMap" parameterType="com.water.uubook.model.ITArticleCriteria" id="selectByExampleWithRowbounds" >
+  <select resultMap="BaseResultMap" parameterType="com.water.uubook.model.ArticleCriteria" id="selectByExampleWithRowbounds" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from it_article
+    from article
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -439,9 +439,9 @@
     </if>
   </select>
   <insert id="insertBatch" >
-    insert into it_article (id, title, description, author, category, reference, descrypt_url, release_time, create_on, module, origin, tags, view_hits, content) values 
+    insert into article (id, title, description, author, category, reference, descrypt_url, release_time, create_on, module, origin, tags, view_hits, content) values 
     <foreach collection="list" item="item" index="index" separator="," >
-      (#{item.id,jdbcType=VARCHAR}, #{item.title,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
+      (#{item.id,jdbcType=INTEGER}, #{item.title,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
         #{item.author,jdbcType=VARCHAR}, #{item.category,jdbcType=INTEGER}, #{item.reference,jdbcType=VARCHAR}, 
         #{item.descryptUrl,jdbcType=VARCHAR}, #{item.releaseTime,jdbcType=VARCHAR}, #{item.createOn,jdbcType=BIGINT}, 
         #{item.module,jdbcType=INTEGER}, #{item.origin,jdbcType=INTEGER}, #{item.tags,jdbcType=VARCHAR}, 

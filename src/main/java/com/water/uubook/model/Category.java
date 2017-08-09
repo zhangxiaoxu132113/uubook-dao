@@ -1,26 +1,35 @@
 package com.water.uubook.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
-public class ITTag implements Serializable {
-    private String id;
+public class Category implements Serializable {
+    private Integer id;
+
+    private Integer parentId;
 
     private String name;
 
     private String description;
 
-    private String parent;
-
-    private Long createOn;
+    private Date createTime;
 
     private static final long serialVersionUID = 1L;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
     public String getName() {
@@ -39,19 +48,11 @@ public class ITTag implements Serializable {
         this.description = description == null ? null : description.trim();
     }
 
-    public String getParent() {
-        return parent;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setParent(String parent) {
-        this.parent = parent == null ? null : parent.trim();
-    }
-
-    public Long getCreateOn() {
-        return createOn;
-    }
-
-    public void setCreateOn(Long createOn) {
-        this.createOn = createOn;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

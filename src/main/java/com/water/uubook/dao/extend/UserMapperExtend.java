@@ -1,4 +1,4 @@
 package com.water.uubook.dao.extend;
 
-public interface ITTagMapperExtend {
+public interface UserMapperExtend {
 }

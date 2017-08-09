@@ -3,10 +3,9 @@ package com.water.uubook.dao;
 import com.water.uubook.dao.extend.ITArticleMapperExtend;
 import com.water.uubook.model.ITArticle;
 import com.water.uubook.model.ITArticleCriteria;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
-
-import java.util.List;
 
 public interface ITArticleMapper extends ITArticleMapperExtend {
     int countByExample(ITArticleCriteria example);

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.water.uubook.dao.extend.ArticleMapperExtend">
     <!--扩展方法-->
-    <select id="getArticle" parameterType="java.util.Map" resultType="com.water.uubook.model.Article">
+    <select id="findArticleListByCondition" parameterType="java.util.Map" resultType="com.water.uubook.model.dto.ArticleDto">
         SELECT
         <choose>
             <when test="cols != null">
@@ -12,6 +12,15 @@
                     </if>
                     <if test="col == 'title'">
                         title,
+                    </if>
+                    <if test="col == 'view_hits'">
+                        view_hits,
+                    </if>
+                    <if test="col == 'tags'">
+                        tags,
+                    </if>
+                    <if test="col == 'create_on'">
+                        create_on,
                     </if>
                 </foreach>
                 ""
@@ -52,7 +61,83 @@
         </if>
     </select>
 
+    <select id="findArticleListInCategory" parameterType="java.util.Map" resultType="com.water.uubook.model.dto.ArticleDto">
+        SELECT
+        <choose>
+            <when test="cols != null">
+                <foreach collection="cols" item="col" index="index">
+                    <if test="col == 'id'">
+                        id,
+                    </if>
+                    <if test="col == 'title'">
+                        title,
+                    </if>
+                    <if test="col == 'view_hits'">
+                        view_hits,
+                    </if>
+                    <if test="col == 'tags'">
+                        tags,
+                    </if>
+                    <if test="col == 'create_on'">
+                        create_on,
+                    </if>
+                </foreach>
+                ""
+            </when>
+            <otherwise>
+                *
+            </otherwise>
+        </choose>
+        FROM article WHERE 1=1
+        <if test="model != null">
+            <if test="model.module != null">
+                AND module = #{model.module}
+            </if>
+            <if test="categories != null and categories.size > 0">
+                AND category in (
+                <foreach collection="categories" item="col" index="index">
+                    #{col},
+                </foreach>
+                1000)
+            </if>
+        </if>
+
+        <if test="sortMap != null">
+            ORDER BY
+            <if test="sortMap.viewHits != null and sortMap.viewHits != ''">
+                viewHits #{sortMap.viewHits},
+            </if>
+            <choose>
+                <when test="sortMap.createOn != null and sortMap.createOn != ''">
+                    create_on #{sortMap.createOn},
+                </when>
+                <otherwise>
+                    create_on DESC
+                </otherwise>
+            </choose>
+
+        </if>
+
+
+        <if test="pageSize > 0 and begin >= 0">
+            LIMIT #{begin},#{pageSize}
+        </if>
+    </select>
+
     <select id="getTotalCount" resultType="java.lang.Integer">
         SELECT count(*) FROM article;
     </select>
+
+    <insert id="insertReturnPrimaryKey" useGeneratedKeys="true" keyProperty="id" parameterType="com.water.uubook.model.Article" >
+        insert into article (title, description,
+        author, category, reference,
+        descrypt_url, release_time, create_on,
+        module, origin, tags,
+        view_hits, content)
+        values (#{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+        #{author,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, #{reference,jdbcType=VARCHAR},
+        #{descryptUrl,jdbcType=VARCHAR}, #{releaseTime,jdbcType=VARCHAR}, #{createOn,jdbcType=BIGINT},
+        #{module,jdbcType=INTEGER}, #{origin,jdbcType=INTEGER}, #{tags,jdbcType=VARCHAR},
+        #{viewHits,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+    </insert>
 </mapper>

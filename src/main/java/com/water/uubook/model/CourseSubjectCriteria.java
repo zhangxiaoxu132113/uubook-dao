@@ -114,62 +114,52 @@ public class CourseSubjectCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(String value) {
+        public Criteria andIdEqualTo(Integer value) {
             addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(String value) {
+        public Criteria andIdNotEqualTo(Integer value) {
             addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(String value) {
+        public Criteria andIdGreaterThan(Integer value) {
             addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(String value) {
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(String value) {
+        public Criteria andIdLessThan(Integer value) {
             addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(String value) {
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
             addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLike(String value) {
-            addCriterion("id like", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdNotLike(String value) {
-            addCriterion("id not like", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdIn(List<String> values) {
+        public Criteria andIdIn(List<Integer> values) {
             addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<String> values) {
+        public Criteria andIdNotIn(List<Integer> values) {
             addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(String value1, String value2) {
+        public Criteria andIdBetween(Integer value1, Integer value2) {
             addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(String value1, String value2) {
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
             addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
@@ -324,62 +314,52 @@ public class CourseSubjectCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andPartentIdEqualTo(String value) {
+        public Criteria andPartentIdEqualTo(Integer value) {
             addCriterion("partent_id =", value, "partentId");
             return (Criteria) this;
         }
 
-        public Criteria andPartentIdNotEqualTo(String value) {
+        public Criteria andPartentIdNotEqualTo(Integer value) {
             addCriterion("partent_id <>", value, "partentId");
             return (Criteria) this;
         }
 
-        public Criteria andPartentIdGreaterThan(String value) {
+        public Criteria andPartentIdGreaterThan(Integer value) {
             addCriterion("partent_id >", value, "partentId");
             return (Criteria) this;
         }
 
-        public Criteria andPartentIdGreaterThanOrEqualTo(String value) {
+        public Criteria andPartentIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("partent_id >=", value, "partentId");
             return (Criteria) this;
         }
 
-        public Criteria andPartentIdLessThan(String value) {
+        public Criteria andPartentIdLessThan(Integer value) {
             addCriterion("partent_id <", value, "partentId");
             return (Criteria) this;
         }
 
-        public Criteria andPartentIdLessThanOrEqualTo(String value) {
+        public Criteria andPartentIdLessThanOrEqualTo(Integer value) {
             addCriterion("partent_id <=", value, "partentId");
             return (Criteria) this;
         }
 
-        public Criteria andPartentIdLike(String value) {
-            addCriterion("partent_id like", value, "partentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPartentIdNotLike(String value) {
-            addCriterion("partent_id not like", value, "partentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPartentIdIn(List<String> values) {
+        public Criteria andPartentIdIn(List<Integer> values) {
             addCriterion("partent_id in", values, "partentId");
             return (Criteria) this;
         }
 
-        public Criteria andPartentIdNotIn(List<String> values) {
+        public Criteria andPartentIdNotIn(List<Integer> values) {
             addCriterion("partent_id not in", values, "partentId");
             return (Criteria) this;
         }
 
-        public Criteria andPartentIdBetween(String value1, String value2) {
+        public Criteria andPartentIdBetween(Integer value1, Integer value2) {
             addCriterion("partent_id between", value1, value2, "partentId");
             return (Criteria) this;
         }
 
-        public Criteria andPartentIdNotBetween(String value1, String value2) {
+        public Criteria andPartentIdNotBetween(Integer value1, Integer value2) {
             addCriterion("partent_id not between", value1, value2, "partentId");
             return (Criteria) this;
         }

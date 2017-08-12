@@ -1,10 +1,7 @@
 package com.water.uubook.dao.extend;
 
-import com.water.uubook.model.dto.CourseDto;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
+import com.water.uubook.model.Course;
 
 public interface CourseMapperExtend {
-    List<CourseDto> getCatalogByCourseName(@Param("courseName") String courseName);
+    Integer insertReturnPrimarykey(Course course);
 }

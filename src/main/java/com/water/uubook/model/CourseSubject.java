@@ -3,13 +3,13 @@ package com.water.uubook.model;
 import java.io.Serializable;
 
 public class CourseSubject implements Serializable {
-    private String id;
+    private Integer id;
 
     private String name;
 
     private String description;
 
-    private String partentId;
+    private Integer partentId;
 
     private Long updateTime;
 
@@ -17,12 +17,12 @@ public class CourseSubject implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -41,12 +41,12 @@ public class CourseSubject implements Serializable {
         this.description = description == null ? null : description.trim();
     }
 
-    public String getPartentId() {
+    public Integer getPartentId() {
         return partentId;
     }
 
-    public void setPartentId(String partentId) {
-        this.partentId = partentId == null ? null : partentId.trim();
+    public void setPartentId(Integer partentId) {
+        this.partentId = partentId;
     }
 
     public Long getUpdateTime() {

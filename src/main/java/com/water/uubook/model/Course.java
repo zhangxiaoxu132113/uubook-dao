@@ -3,13 +3,13 @@ package com.water.uubook.model;
 import java.io.Serializable;
 
 public class Course implements Serializable {
-    private String id;
+    private Integer id;
 
-    private String articleId;
+    private Integer articleId;
 
-    private String courseSubjectId;
+    private Integer courseSubjectId;
 
-    private String partentId;
+    private Integer partentId;
 
     private String title;
 
@@ -21,36 +21,36 @@ public class Course implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getArticleId() {
+    public Integer getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(String articleId) {
-        this.articleId = articleId == null ? null : articleId.trim();
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
-    public String getCourseSubjectId() {
+    public Integer getCourseSubjectId() {
         return courseSubjectId;
     }
 
-    public void setCourseSubjectId(String courseSubjectId) {
-        this.courseSubjectId = courseSubjectId == null ? null : courseSubjectId.trim();
+    public void setCourseSubjectId(Integer courseSubjectId) {
+        this.courseSubjectId = courseSubjectId;
     }
 
-    public String getPartentId() {
+    public Integer getPartentId() {
         return partentId;
     }
 
-    public void setPartentId(String partentId) {
-        this.partentId = partentId == null ? null : partentId.trim();
+    public void setPartentId(Integer partentId) {
+        this.partentId = partentId;
     }
 
     public String getTitle() {

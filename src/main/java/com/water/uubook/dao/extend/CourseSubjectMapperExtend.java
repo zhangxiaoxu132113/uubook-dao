@@ -1,12 +1,7 @@
 package com.water.uubook.dao.extend;
 
-import com.water.uubook.model.dto.CourseSubjectDto;
-
-import java.util.List;
-import java.util.Map;
+import com.water.uubook.model.CourseSubject;
 
 public interface CourseSubjectMapperExtend {
-    List<CourseSubjectDto> getAllCourseSubject();
-
-    List<CourseSubjectDto> getCourseSubjectByExample(Map<String, Object> queryMap);
+    Integer insertReturnPrimaryKey(CourseSubject model);
 }

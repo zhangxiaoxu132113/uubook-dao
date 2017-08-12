@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.water.uubook.dao.CourseMapper" >
   <resultMap id="BaseResultMap" type="com.water.uubook.model.Course" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="article_id" property="articleId" jdbcType="VARCHAR" />
-    <result column="course_subject_id" property="courseSubjectId" jdbcType="VARCHAR" />
-    <result column="partent_id" property="partentId" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="article_id" property="articleId" jdbcType="INTEGER" />
+    <result column="course_subject_id" property="courseSubjectId" jdbcType="INTEGER" />
+    <result column="partent_id" property="partentId" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="sort" property="sort" jdbcType="TINYINT" />
     <result column="update_time" property="updateTime" jdbcType="BIGINT" />
@@ -86,15 +86,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from course
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from course
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.water.uubook.model.CourseCriteria" >
     delete from course
@@ -106,8 +106,8 @@
     insert into course (id, article_id, course_subject_id, 
       partent_id, title, sort, 
       update_time, create_on)
-    values (#{id,jdbcType=VARCHAR}, #{articleId,jdbcType=VARCHAR}, #{courseSubjectId,jdbcType=VARCHAR}, 
-      #{partentId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{sort,jdbcType=TINYINT}, 
+    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{courseSubjectId,jdbcType=INTEGER}, 
+      #{partentId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{sort,jdbcType=TINYINT}, 
       #{updateTime,jdbcType=BIGINT}, #{createOn,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.water.uubook.model.Course" >
@@ -140,16 +140,16 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="articleId != null" >
-        #{articleId,jdbcType=VARCHAR},
+        #{articleId,jdbcType=INTEGER},
       </if>
       <if test="courseSubjectId != null" >
-        #{courseSubjectId,jdbcType=VARCHAR},
+        #{courseSubjectId,jdbcType=INTEGER},
       </if>
       <if test="partentId != null" >
-        #{partentId,jdbcType=VARCHAR},
+        #{partentId,jdbcType=INTEGER},
       </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
@@ -175,16 +175,16 @@
     update course
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
+        id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.articleId != null" >
-        article_id = #{record.articleId,jdbcType=VARCHAR},
+        article_id = #{record.articleId,jdbcType=INTEGER},
       </if>
       <if test="record.courseSubjectId != null" >
-        course_subject_id = #{record.courseSubjectId,jdbcType=VARCHAR},
+        course_subject_id = #{record.courseSubjectId,jdbcType=INTEGER},
       </if>
       <if test="record.partentId != null" >
-        partent_id = #{record.partentId,jdbcType=VARCHAR},
+        partent_id = #{record.partentId,jdbcType=INTEGER},
       </if>
       <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
@@ -205,10 +205,10 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update course
-    set id = #{record.id,jdbcType=VARCHAR},
-      article_id = #{record.articleId,jdbcType=VARCHAR},
-      course_subject_id = #{record.courseSubjectId,jdbcType=VARCHAR},
-      partent_id = #{record.partentId,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=INTEGER},
+      article_id = #{record.articleId,jdbcType=INTEGER},
+      course_subject_id = #{record.courseSubjectId,jdbcType=INTEGER},
+      partent_id = #{record.partentId,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
       sort = #{record.sort,jdbcType=TINYINT},
       update_time = #{record.updateTime,jdbcType=BIGINT},
@@ -221,13 +221,13 @@
     update course
     <set >
       <if test="articleId != null" >
-        article_id = #{articleId,jdbcType=VARCHAR},
+        article_id = #{articleId,jdbcType=INTEGER},
       </if>
       <if test="courseSubjectId != null" >
-        course_subject_id = #{courseSubjectId,jdbcType=VARCHAR},
+        course_subject_id = #{courseSubjectId,jdbcType=INTEGER},
       </if>
       <if test="partentId != null" >
-        partent_id = #{partentId,jdbcType=VARCHAR},
+        partent_id = #{partentId,jdbcType=INTEGER},
       </if>
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
@@ -242,18 +242,18 @@
         create_on = #{createOn,jdbcType=BIGINT},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.water.uubook.model.Course" >
     update course
-    set article_id = #{articleId,jdbcType=VARCHAR},
-      course_subject_id = #{courseSubjectId,jdbcType=VARCHAR},
-      partent_id = #{partentId,jdbcType=VARCHAR},
+    set article_id = #{articleId,jdbcType=INTEGER},
+      course_subject_id = #{courseSubjectId,jdbcType=INTEGER},
+      partent_id = #{partentId,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
       sort = #{sort,jdbcType=TINYINT},
       update_time = #{updateTime,jdbcType=BIGINT},
       create_on = #{createOn,jdbcType=BIGINT}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <select resultMap="BaseResultMap" parameterType="com.water.uubook.model.CourseCriteria" id="selectByExampleWithRowbounds" >
     select
@@ -272,8 +272,8 @@
   <insert id="insertBatch" >
     insert into course (id, article_id, course_subject_id, partent_id, title, sort, update_time, create_on) values 
     <foreach collection="list" item="item" index="index" separator="," >
-      (#{item.id,jdbcType=VARCHAR}, #{item.articleId,jdbcType=VARCHAR}, #{item.courseSubjectId,jdbcType=VARCHAR}, 
-        #{item.partentId,jdbcType=VARCHAR}, #{item.title,jdbcType=VARCHAR}, #{item.sort,jdbcType=TINYINT}, 
+      (#{item.id,jdbcType=INTEGER}, #{item.articleId,jdbcType=INTEGER}, #{item.courseSubjectId,jdbcType=INTEGER}, 
+        #{item.partentId,jdbcType=INTEGER}, #{item.title,jdbcType=VARCHAR}, #{item.sort,jdbcType=TINYINT}, 
         #{item.updateTime,jdbcType=BIGINT}, #{item.createOn,jdbcType=BIGINT})
     </foreach>
   </insert>

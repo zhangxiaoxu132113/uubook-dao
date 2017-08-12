@@ -1,7 +1,7 @@
 package com.water.uubook.model.dto;
 
 import com.water.uubook.model.Article;
-import com.water.uubook.model.ITArticle;
+import com.water.uubook.model.Tag;
 
 import java.util.List;
 
@@ -10,6 +10,15 @@ import java.util.List;
  */
 public class ArticleDto extends Article {
     private List<Article> relatedArticles;
+    private List<Tag> tagList;
+
+    public List<Tag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<Tag> tagList) {
+        this.tagList = tagList;
+    }
 
     public List<Article> getRelatedArticles() {
         return relatedArticles;

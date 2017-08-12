@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.water.uubook.dao.CourseSubjectMapper" >
   <resultMap id="BaseResultMap" type="com.water.uubook.model.CourseSubject" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="partent_id" property="partentId" jdbcType="VARCHAR" />
+    <result column="partent_id" property="partentId" jdbcType="INTEGER" />
     <result column="update_time" property="updateTime" jdbcType="BIGINT" />
     <result column="create_on" property="createOn" jdbcType="BIGINT" />
   </resultMap>
@@ -84,15 +84,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from course_subject
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from course_subject
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.water.uubook.model.CourseSubjectCriteria" >
     delete from course_subject
@@ -104,8 +104,8 @@
     insert into course_subject (id, name, description, 
       partent_id, update_time, create_on
       )
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{partentId,jdbcType=VARCHAR}, #{updateTime,jdbcType=BIGINT}, #{createOn,jdbcType=BIGINT}
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{partentId,jdbcType=INTEGER}, #{updateTime,jdbcType=BIGINT}, #{createOn,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.water.uubook.model.CourseSubject" >
@@ -132,7 +132,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -141,7 +141,7 @@
         #{description,jdbcType=VARCHAR},
       </if>
       <if test="partentId != null" >
-        #{partentId,jdbcType=VARCHAR},
+        #{partentId,jdbcType=INTEGER},
       </if>
       <if test="updateTime != null" >
         #{updateTime,jdbcType=BIGINT},
@@ -161,7 +161,7 @@
     update course_subject
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
+        id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
@@ -170,7 +170,7 @@
         description = #{record.description,jdbcType=VARCHAR},
       </if>
       <if test="record.partentId != null" >
-        partent_id = #{record.partentId,jdbcType=VARCHAR},
+        partent_id = #{record.partentId,jdbcType=INTEGER},
       </if>
       <if test="record.updateTime != null" >
         update_time = #{record.updateTime,jdbcType=BIGINT},
@@ -185,10 +185,10 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update course_subject
-    set id = #{record.id,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
-      partent_id = #{record.partentId,jdbcType=VARCHAR},
+      partent_id = #{record.partentId,jdbcType=INTEGER},
       update_time = #{record.updateTime,jdbcType=BIGINT},
       create_on = #{record.createOn,jdbcType=BIGINT}
     <if test="_parameter != null" >
@@ -205,7 +205,7 @@
         description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="partentId != null" >
-        partent_id = #{partentId,jdbcType=VARCHAR},
+        partent_id = #{partentId,jdbcType=INTEGER},
       </if>
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=BIGINT},
@@ -214,16 +214,16 @@
         create_on = #{createOn,jdbcType=BIGINT},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.water.uubook.model.CourseSubject" >
     update course_subject
     set name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      partent_id = #{partentId,jdbcType=VARCHAR},
+      partent_id = #{partentId,jdbcType=INTEGER},
       update_time = #{updateTime,jdbcType=BIGINT},
       create_on = #{createOn,jdbcType=BIGINT}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <select resultMap="BaseResultMap" parameterType="com.water.uubook.model.CourseSubjectCriteria" id="selectByExampleWithRowbounds" >
     select
@@ -242,8 +242,8 @@
   <insert id="insertBatch" >
     insert into course_subject (id, name, description, partent_id, update_time, create_on) values 
     <foreach collection="list" item="item" index="index" separator="," >
-      (#{item.id,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
-        #{item.partentId,jdbcType=VARCHAR}, #{item.updateTime,jdbcType=BIGINT}, #{item.createOn,jdbcType=BIGINT}
+      (#{item.id,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
+        #{item.partentId,jdbcType=INTEGER}, #{item.updateTime,jdbcType=BIGINT}, #{item.createOn,jdbcType=BIGINT}
         )
     </foreach>
   </insert>

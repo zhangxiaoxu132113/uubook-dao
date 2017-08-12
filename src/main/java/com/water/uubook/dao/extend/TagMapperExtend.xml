@@ -3,6 +3,6 @@
 <mapper namespace="com.water.uubook.dao.extend.TagMapperExtend">
     <!--扩展方法-->
     <select id="getAllTags" resultType="com.water.uubook.model.dto.TagDto">
-        SELECT * FROM it_tag
+        SELECT * FROM tag
     </select>
 </mapper>

@@ -10,4 +10,22 @@
         #{partentId,jdbcType=INTEGER}, #{updateTime,jdbcType=BIGINT}, #{createOn,jdbcType=BIGINT}
         )
     </insert>
+
+    <select id="getAllCourseSubject" resultType="com.water.uubook.model.dto.CourseSubjectDto">
+        SELECT * FROM course_subject
+    </select>
+
+    <select id="getCourseSubjectByExample" parameterType="java.util.Map" resultType="com.water.uubook.model.dto.CourseSubjectDto">
+        SELECT * FROM course_subject WHERE 1=1
+        <if test="courseName != ''">
+            AND name = #{courseName}
+        </if>
+        <if test="partentId != ''">
+            AND partentId = #{partentId}
+        </if>
+        <if test="id != ''">
+            AND id = #{id}
+        </if>
+    </select>
+
 </mapper>

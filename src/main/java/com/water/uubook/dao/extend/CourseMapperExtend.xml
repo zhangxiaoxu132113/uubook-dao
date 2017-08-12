@@ -10,4 +10,10 @@
       #{partentId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{sort,jdbcType=TINYINT},
       #{updateTime,jdbcType=BIGINT}, #{createOn,jdbcType=BIGINT})
   </insert>
+
+    <select id="getCatalogByCourseName" parameterType="java.lang.String" resultType="com.water.uubook.model.dto.CourseDto">
+        SELECT * FROM course WHERE course_subject_id IN (
+        SELECT id FROM `course_subject` WHERE name = #{courseName}
+        ) ORDER BY sort asc;
+    </select>
 </mapper>

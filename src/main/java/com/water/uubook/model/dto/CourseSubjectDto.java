@@ -8,9 +8,17 @@ import java.util.List;
  * Created by zhangmiaojie on 2017/5/31.
  */
 public class CourseSubjectDto extends CourseSubject {
+    private Integer viewTotal;
     private CourseSubjectDto partentCourseSubject;
-
     private List<CourseSubjectDto> sonCourseSubjectList;
+
+    public Integer getViewTotal() {
+        return viewTotal;
+    }
+
+    public void setViewTotal(Integer viewTotal) {
+        this.viewTotal = viewTotal;
+    }
 
     public CourseSubjectDto getPartentCourseSubject() {
         return partentCourseSubject;

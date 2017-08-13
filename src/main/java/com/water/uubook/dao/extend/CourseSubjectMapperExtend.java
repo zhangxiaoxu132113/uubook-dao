@@ -11,5 +11,7 @@ public interface CourseSubjectMapperExtend {
 
     List<CourseSubjectDto> getAllCourseSubject();
 
+    List<CourseSubjectDto> getAllCourseSubjectWithViewHits();
+
     List<CourseSubjectDto> getCourseSubjectByExample(Map<String, Object> queryMap);
 }

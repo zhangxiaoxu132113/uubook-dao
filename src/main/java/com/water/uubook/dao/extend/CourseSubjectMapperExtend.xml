@@ -15,6 +15,15 @@
         SELECT * FROM course_subject
     </select>
 
+    <select id="getAllCourseSubjectWithViewHits" resultType="com.water.uubook.model.dto.CourseSubjectDto">
+        select cs.*, t.total from (
+        select c.*,sum(a.view_hits) as total from course c left join article a on c.article_id = a.id
+        where 1=1 group by c.course_subject_id ORDER BY total DESC ) as t
+        right join course_subject cs on cs.id = t.course_subject_id
+
+    </select>
+
+
     <select id="getCourseSubjectByExample" parameterType="java.util.Map" resultType="com.water.uubook.model.dto.CourseSubjectDto">
         SELECT * FROM course_subject WHERE 1=1
         <if test="courseName != ''">

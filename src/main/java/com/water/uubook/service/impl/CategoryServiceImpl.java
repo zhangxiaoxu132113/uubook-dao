@@ -54,7 +54,7 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryDto> getHotCategories() throws ExecutionException {
         List<CategoryDto> categoryDtoList = initializeCategoryList();
         if (categoryDtoList != null) {
-            categoryDtoList = categoryDtoList.stream().filter(p -> p.getParentId() != 0).collect(Collectors.toList());
+            categoryDtoList = categoryDtoList.stream().filter(p -> p.getParentId() != null && p.getParentId() != 0).collect(Collectors.toList());
             categoryDtoList.sort((CategoryDto c1, CategoryDto c2) -> c2.getTotal().compareTo(c1.getTotal()));
             if (categoryDtoList.size() > 20) {
                 return categoryDtoList.subList(0, 20);
@@ -66,7 +66,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryDto> getAllParentCategories() {
         List<CategoryDto> categoryDtoList = initializeCategoryList();
-        return categoryDtoList.stream().filter(p-> p.getParentId()==0).collect(Collectors.toList());
+        return categoryDtoList.stream().filter(p-> p.getParentId() != null && p.getParentId()==0)
+                .collect(Collectors.toList());
     }
 
     private Map<Integer, CategoryDto> initializeTagMap() {
@@ -97,10 +98,10 @@ public class CategoryServiceImpl implements CategoryService {
             for (Map.Entry<Integer, CategoryDto> entry : categoryMap.entrySet()) {
                 categoryDtoList.add(entry.getValue());
             }
-            return categoryDtoList;
         } catch (ExecutionException e) {
-            throw new RuntimeException("access cache exception!");
+            e.printStackTrace();
         }
+        return categoryDtoList;
     }
 
 

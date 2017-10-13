@@ -117,6 +117,21 @@ public class CourseSubjectServiceImpl implements CourseSubjectService {
         return courseSubjectDtos;
     }
 
+    @Override
+    public List<CourseSubjectDto> getHotCourseSubjectWithSize(int size) {
+        try {
+            List<CourseSubjectDto> tmpList = (List<CourseSubjectDto>) cacheLocal.get(Constants.CacheKey.ALL_COURSE_SUBJECT);
+            tmpList = tmpList.stream().filter(p -> p.getPartentId() != null).collect(Collectors.toList());
+            if (tmpList != null && tmpList.size() > size) {
+                return tmpList.subList(0 , size);
+            }
+        } catch (ExecutionException e) {
+            throw new RuntimeException("获取数据异常！");
+        }
+
+        return null;
+    }
+
     @PostConstruct
     public void init() {
         cacheLocal = CacheBuilder.newBuilder().refreshAfterWrite(1, TimeUnit.DAYS).build(

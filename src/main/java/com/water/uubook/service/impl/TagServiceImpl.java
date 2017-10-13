@@ -7,6 +7,7 @@ import com.water.uubook.dao.TagMapper;
 import com.water.uubook.model.Tag;
 import com.water.uubook.model.TagCriteria;
 import com.water.uubook.model.dto.CategoryDto;
+import com.water.uubook.model.dto.TagDto;
 import com.water.uubook.service.TagService;
 
 import java.util.*;
@@ -16,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 import com.water.uubook.utils.Constants;
+import com.water.uubook.utils.DateUtil;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -44,6 +46,57 @@ public class TagServiceImpl implements TagService {
             }
         }
         return null;
+    }
+
+    @Override
+    public List<TagDto> getTagsByCondition(TagDto model, String[] cols, int currentPage, int pageSize) {
+        Map<String, Object> queryParam = new HashMap<>();
+        int begin = (currentPage - 1) * pageSize;
+        queryParam.put("model", model);
+        queryParam.put("cols", cols);
+        queryParam.put("begin", begin);
+        queryParam.put("pageSize", pageSize);
+        List<TagDto> tagDtoList = tagMapper.getTagsByCondition(queryParam);
+        tagDtoList.stream().forEach(p -> {
+            p.setCreateOnStr(DateUtil.DATE_FORMAT_YMDHMS.format(p.getCreateTime()));
+            if (org.apache.commons.lang3.StringUtils.isBlank(p.getParentName())) {
+                p.setParentName("");
+            }
+        });
+
+        return tagDtoList;
+    }
+
+    @Override
+    public int countTagTotal(TagDto model) {
+        if (model == null) {
+            throw new RuntimeException("参数不合法！");
+        }
+        TagCriteria tagCriteria = new TagCriteria();
+        TagCriteria.Criteria criteria = tagCriteria.createCriteria();
+        if (model.getCategoryId() != null) {
+            criteria.andCategoryIdEqualTo(model.getCategoryId());
+        }
+
+        return tagMapper.countByExample(tagCriteria);
+    }
+
+    @Override
+    public int delTagById(Integer id) {
+        if (id == null) {
+            throw new RuntimeException("参数不合法！");
+        }
+
+        return tagMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateTag(Tag model) {
+        if (model == null || model.getId() == null) {
+            throw new RuntimeException("参数不合法！");
+        }
+
+        return tagMapper.updateByPrimaryKeySelective(model);
     }
 
     private Map<Integer, Tag> initializeTagMap() {

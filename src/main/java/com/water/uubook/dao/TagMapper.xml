@@ -7,7 +7,9 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="weight" property="weight" jdbcType="REAL" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="enable" property="enable" jdbcType="BIT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, category_id, name, description, weight, create_time
+    id, category_id, name, description, weight, parent_id, create_time, enable
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.water.uubook.model.TagCriteria" >
     select
@@ -102,11 +104,11 @@
   </delete>
   <insert id="insert" parameterType="com.water.uubook.model.Tag" >
     insert into tag (id, category_id, name, 
-      description, weight, create_time
-      )
+      description, weight, parent_id, 
+      create_time, enable)
     values (#{id,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{weight,jdbcType=REAL}, #{createTime,jdbcType=TIMESTAMP}
-      )
+      #{description,jdbcType=VARCHAR}, #{weight,jdbcType=REAL}, #{parentId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.water.uubook.model.Tag" >
     insert into tag
@@ -126,8 +128,14 @@
       <if test="weight != null" >
         weight,
       </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
       <if test="createTime != null" >
         create_time,
+      </if>
+      <if test="enable != null" >
+        enable,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -146,8 +154,14 @@
       <if test="weight != null" >
         #{weight,jdbcType=REAL},
       </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -175,8 +189,14 @@
       <if test="record.weight != null" >
         weight = #{record.weight,jdbcType=REAL},
       </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.enable != null" >
+        enable = #{record.enable,jdbcType=BIT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -190,7 +210,9 @@
       name = #{record.name,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       weight = #{record.weight,jdbcType=REAL},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      enable = #{record.enable,jdbcType=BIT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -210,8 +232,14 @@
       <if test="weight != null" >
         weight = #{weight,jdbcType=REAL},
       </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=BIT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -222,7 +250,9 @@
       name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       weight = #{weight,jdbcType=REAL},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      parent_id = #{parentId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      enable = #{enable,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select resultMap="BaseResultMap" parameterType="com.water.uubook.model.TagCriteria" id="selectByExampleWithRowbounds" >
@@ -240,11 +270,11 @@
     </if>
   </select>
   <insert id="insertBatch" >
-    insert into tag (id, category_id, name, description, weight, create_time) values 
+    insert into tag (id, category_id, name, description, weight, parent_id, create_time, enable) values 
     <foreach collection="list" item="item" index="index" separator="," >
       (#{item.id,jdbcType=INTEGER}, #{item.categoryId,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, 
-        #{item.description,jdbcType=VARCHAR}, #{item.weight,jdbcType=REAL}, #{item.createTime,jdbcType=TIMESTAMP}
-        )
+        #{item.description,jdbcType=VARCHAR}, #{item.weight,jdbcType=REAL}, #{item.parentId,jdbcType=INTEGER}, 
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.enable,jdbcType=BIT})
     </foreach>
   </insert>
 </mapper>

@@ -13,6 +13,25 @@ public class CategoryDto extends Category {
     private CategoryDto parent;
     private List<CategoryDto> children;
 
+    private String parentName;
+    private String createOnStr;
+
+    public String getCreateOnStr() {
+        return createOnStr;
+    }
+
+    public void setCreateOnStr(String createOnStr) {
+        this.createOnStr = createOnStr;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
     public Integer getTotal() {
         return total;
     }

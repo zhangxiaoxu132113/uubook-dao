@@ -12,4 +12,6 @@ public interface CourseSubjectService {
     CourseSubjectDto getCourseSubjectByExample(Map<String, Object> queryMap) throws ExecutionException;
 
     List<CourseSubjectDto> getRecommendCourseSubjectByTags(String[] tag);
+
+    List<CourseSubjectDto> getHotCourseSubjectWithSize(int Size);
 }

@@ -8,19 +8,31 @@
             <when test="cols != null">
                 <foreach collection="cols" item="col" index="index">
                     <if test="col == 'id'">
-                        id,
+                        a.id,
                     </if>
                     <if test="col == 'title'">
-                        title,
+                        a.title,
                     </if>
-                    <if test="col == 'view_hits'">
-                        view_hits,
+                    <if test="col == 'description'">
+                        a.description,
+                    </if>
+                    <if test="col == 'viewHits'">
+                        a.view_hits,
                     </if>
                     <if test="col == 'tags'">
-                        tags,
+                        a.tags,
                     </if>
-                    <if test="col == 'create_on'">
-                        create_on,
+                    <if test="col == 'createOn'">
+                        a.create_on,
+                    </if>
+                    <if test="col == 'category'">
+                        a.category,
+                    </if>
+                    <if test="col == 'picUrl'">
+                        a.pic_url,
+                    </if>
+                    <if test="col == 'enable'">
+                        a.enable,
                     </if>
                 </foreach>
                 ""
@@ -29,24 +41,36 @@
                 *
             </otherwise>
         </choose>
-        FROM article WHERE 1=1
+        FROM article a left join category c on a.category = c.id WHERE 1=1
         <if test="model != null">
+            <if test="model.id != null">
+                AND a.id = #{model.id}
+            </if>
+            <if test="model.title != null and model.title != ''">
+                AND a.title = #{model.title}
+            </if>
             <if test="model.module != null">
-                AND module = #{model.module}
+                AND a.module = #{model.module}
             </if>
             <if test="model.category != null">
-                AND category = #{model.category}
+                AND a.category = #{model.category}
+            </if>
+            <if test="model.parentCategory != null and model.parentCategory != ''">
+                AND c.parent_id = #{model.parentCategory}
+            </if>
+            <if test="model.enable != null">
+                AND a.enable = #{model.enable}
             </if>
         </if>
 
         <if test="sortMap != null">
             ORDER BY
             <if test="sortMap.viewHits != null and sortMap.viewHits != ''">
-                viewHits #{sortMap.viewHits},
+                view_hits ${sortMap.viewHits},
             </if>
             <choose>
                 <when test="sortMap.createOn != null and sortMap.createOn != ''">
-                    create_on #{sortMap.createOn},
+                    create_on ${sortMap.createOn}
                 </when>
                 <otherwise>
                     create_on DESC
@@ -72,14 +96,23 @@
                     <if test="col == 'title'">
                         title,
                     </if>
-                    <if test="col == 'view_hits'">
+                    <if test="col == 'viewHits'">
                         view_hits,
                     </if>
                     <if test="col == 'tags'">
                         tags,
                     </if>
-                    <if test="col == 'create_on'">
+                    <if test="col == 'createOn'">
                         create_on,
+                    </if>
+                    <if test="col == 'category'">
+                        category,
+                    </if>
+                    <if test="col == 'picUrl'">
+                        pic_url,
+                    </if>
+                    <if test="col == 'enable'">
+                        enable,
                     </if>
                 </foreach>
                 ""
@@ -117,15 +150,100 @@
             </choose>
 
         </if>
-
-
         <if test="pageSize > 0 and begin >= 0">
             LIMIT #{begin},#{pageSize}
         </if>
     </select>
 
-    <select id="getTotalCount" resultType="java.lang.Integer">
-        SELECT count(*) FROM article;
+    <select id="findArticleListInIds" parameterType="java.util.Map" resultType="com.water.uubook.model.dto.ArticleDto">
+        SELECT
+        <choose>
+            <when test="cols != null">
+                <foreach collection="cols" item="col" index="index">
+                    <if test="col == 'id'">
+                        id,
+                    </if>
+                    <if test="col == 'title'">
+                        title,
+                    </if>
+                    <if test="col == 'viewHits'">
+                        view_hits,
+                    </if>
+                    <if test="col == 'tags'">
+                        tags,
+                    </if>
+                    <if test="col == 'createOn'">
+                        create_on,
+                    </if>
+                    <if test="col == 'category'">
+                        category,
+                    </if>
+                    <if test="col == 'picUrl'">
+                        pic_url,
+                    </if>
+                    <if test="col == 'enable'">
+                        enable,
+                    </if>
+                </foreach>
+                ""
+            </when>
+            <otherwise>
+                *
+            </otherwise>
+        </choose>
+        FROM article WHERE 1=1
+        <if test="ids != null">
+            AND id in (
+            <foreach collection="ids" item="col" index="index">
+                #{col},
+            </foreach>
+            -1)
+        </if>
+        <if test="model != null">
+            <if test="model.module != null">
+                AND module = #{model.module}
+            </if>
+        </if>
+
+        <if test="sortMap != null">
+            ORDER BY
+            <if test="sortMap.viewHits != null and sortMap.viewHits != ''">
+                viewHits #{sortMap.viewHits},
+            </if>
+            <choose>
+                <when test="sortMap.createOn != null and sortMap.createOn != ''">
+                    create_on #{sortMap.createOn},
+                </when>
+                <otherwise>
+                    create_on DESC
+                </otherwise>
+            </choose>
+
+        </if>
+        <if test="pageSize > 0 and begin >= 0">
+            LIMIT #{begin},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(*) FROM article where 1=1
+        <if test="model != null">
+            <if test="model.id != null">
+                AND id = #{model.id}
+            </if>
+            <if test="model.title != null and model.title != ''">
+                AND title = #{model.title}
+            </if>
+            <if test="model.module != null">
+                AND module = #{model.module}
+            </if>
+            <if test="model.category != null">
+                AND category = #{model.category}
+            </if>
+            <if test="model.enable != null">
+                AND enable = #{model.enable}
+            </if>
+        </if>
     </select>
 
     <insert id="insertReturnPrimaryKey" useGeneratedKeys="true" keyProperty="id" parameterType="com.water.uubook.model.Article" >
@@ -140,4 +258,68 @@
         #{module,jdbcType=INTEGER}, #{origin,jdbcType=INTEGER}, #{tags,jdbcType=VARCHAR},
         #{viewHits,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
     </insert>
+
+    <select id="findArticleListOrderById" parameterType="java.util.Map" resultType="com.water.uubook.model.dto.ArticleDto">
+            select * from article where 1=1
+            <if test="id > 0">
+                and id > #{id}
+            </if>
+                ORDER BY id
+            <choose>
+                <when test="count > 0">
+                    LIMIT 0,#{count}
+                </when>
+                <otherwise>
+                    limit 0,10
+                </otherwise>
+            </choose>
+    </select>
+
+    <select id="findArticleListWithTagByCondition" parameterType="java.util.Map" resultType="com.water.uubook.model.dto.ArticleDto">
+        SELECT
+        <choose>
+            <when test="cols != null">
+                <foreach collection="cols" item="col" index="index">
+                    <if test="col == 'id'">
+                        a.id,
+                    </if>
+                    <if test="col == 'title'">
+                        a.title,
+                    </if>
+                    <if test="col == 'viewHits'">
+                        a.view_hits,
+                    </if>
+                    <if test="col == 'tags'">
+                        a.tags,
+                    </if>
+                    <if test="col == 'createOn'">
+                        a.create_on,
+                    </if>
+                    <if test="col == 'category'">
+                        a.category,
+                    </if>
+                    <if test="col == 'picUrl'">
+                        a.pic_url,
+                    </if>
+                    <if test="col == 'enable'">
+                        a.enable,
+                    </if>
+                </foreach>
+                ""
+            </when>
+            <otherwise>
+                *
+            </otherwise>
+        </choose>
+        from article a left join tag_article ta on a.id = ta.article_id
+        left join tag t on t.id = ta.tag_id where 1=1
+        <if test="model != null">
+            <if test="model.tagName != null">
+                AND t.name = #{model.tagName}
+            </if>
+        </if>
+        <if test="pageSize > 0 and begin >= 0">
+            LIMIT #{begin},#{pageSize}
+        </if>
+    </select>
 </mapper>

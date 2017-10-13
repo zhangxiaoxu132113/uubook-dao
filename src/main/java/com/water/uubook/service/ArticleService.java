@@ -1,11 +1,46 @@
 package com.water.uubook.service;
 
+import com.water.uubook.model.Article;
 import com.water.uubook.model.dto.ArticleDto;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ArticleService {
-    List<ArticleDto> findArticleListByCondition(ArticleDto model, String[] queryField, int currentPage, int pageSize);
+    /**
+     * 根据条件获取文章列表(分页)
+     * @param model
+     * @param queryField
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    List<ArticleDto> findArticleListByCondition(ArticleDto model, String[] queryField, Map<String, String> sortMap, int currentPage, int pageSize);
 
-    List<ArticleDto> getArticleTag(List<ArticleDto> articleDtoList);
+    /**
+     * 关联标签获取文章列表（分页）
+     * @param model
+     * @param queryFeild
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    List<ArticleDto> findArticleListWithTagByCondition(ArticleDto model, String[] queryFeild, int currentPage, int pageSize);
+
+    List<ArticleDto> getArticleTag(List<ArticleDto> list);
+
+    ArticleDto findArticleById(Integer id);
+
+    Integer countArticleTotal(ArticleDto model);
+
+    Integer updateArticle(Article model);
+
+    void delArticleById(Integer id);
+
+    /**
+     * 根据id数组获取文章列表
+     * @param ids
+     * @return
+     */
+    List<ArticleDto> findArticleListInIds(String[] cols, Integer[] ids);
 }

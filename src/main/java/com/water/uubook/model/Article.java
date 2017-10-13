@@ -29,6 +29,10 @@ public class Article implements Serializable {
 
     private Integer viewHits;
 
+    private String picUrl;
+
+    private Boolean enable;
+
     private String content;
 
     private static final long serialVersionUID = 1L;
@@ -135,6 +139,22 @@ public class Article implements Serializable {
 
     public void setViewHits(Integer viewHits) {
         this.viewHits = viewHits;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl == null ? null : picUrl.trim();
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 
     public String getContent() {

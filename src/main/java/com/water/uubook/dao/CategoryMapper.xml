@@ -6,7 +6,9 @@
     <result column="parent_id" property="parentId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, parent_id, name, description, create_time
+    id, parent_id, name, description, enable, create_time, pic_url
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.water.uubook.model.CategoryCriteria" >
     select
@@ -101,9 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.water.uubook.model.Category" >
     insert into category (id, parent_id, name, 
-      description, create_time)
+      description, enable, create_time, 
+      pic_url)
     values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+      #{description,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{picUrl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.water.uubook.model.Category" >
     insert into category
@@ -120,8 +124,14 @@
       <if test="description != null" >
         description,
       </if>
+      <if test="enable != null" >
+        enable,
+      </if>
       <if test="createTime != null" >
         create_time,
+      </if>
+      <if test="picUrl != null" >
+        pic_url,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -137,8 +147,14 @@
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=BIT},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="picUrl != null" >
+        #{picUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -163,8 +179,14 @@
       <if test="record.description != null" >
         description = #{record.description,jdbcType=VARCHAR},
       </if>
+      <if test="record.enable != null" >
+        enable = #{record.enable,jdbcType=BIT},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.picUrl != null" >
+        pic_url = #{record.picUrl,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -177,7 +199,9 @@
       parent_id = #{record.parentId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+      enable = #{record.enable,jdbcType=BIT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      pic_url = #{record.picUrl,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -194,8 +218,14 @@
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
       </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=BIT},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="picUrl != null" >
+        pic_url = #{picUrl,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -205,7 +235,9 @@
     set parent_id = #{parentId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      enable = #{enable,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      pic_url = #{picUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select resultMap="BaseResultMap" parameterType="com.water.uubook.model.CategoryCriteria" id="selectByExampleWithRowbounds" >
@@ -223,10 +255,11 @@
     </if>
   </select>
   <insert id="insertBatch" >
-    insert into category (id, parent_id, name, description, create_time) values 
+    insert into category (id, parent_id, name, description, enable, create_time, pic_url) values 
     <foreach collection="list" item="item" index="index" separator="," >
       (#{item.id,jdbcType=INTEGER}, #{item.parentId,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, 
-        #{item.description,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
+        #{item.description,jdbcType=VARCHAR}, #{item.enable,jdbcType=BIT}, #{item.createTime,jdbcType=TIMESTAMP}, 
+        #{item.picUrl,jdbcType=VARCHAR})
     </foreach>
   </insert>
 </mapper>

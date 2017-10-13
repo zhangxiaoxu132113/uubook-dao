@@ -14,7 +14,11 @@ public class Tag implements Serializable {
 
     private Float weight;
 
+    private Integer parentId;
+
     private Date createTime;
+
+    private Boolean enable;
 
     private static final long serialVersionUID = 1L;
 
@@ -58,11 +62,27 @@ public class Tag implements Serializable {
         this.weight = weight;
     }
 
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 }

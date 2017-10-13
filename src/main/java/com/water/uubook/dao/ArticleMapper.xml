@@ -15,6 +15,8 @@
     <result column="origin" property="origin" jdbcType="INTEGER" />
     <result column="tags" property="tags" jdbcType="VARCHAR" />
     <result column="view_hits" property="viewHits" jdbcType="INTEGER" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="BIT" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.water.uubook.model.Article" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -79,7 +81,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, title, description, author, category, reference, descrypt_url, release_time, 
-    create_on, module, origin, tags, view_hits
+    create_on, module, origin, tags, view_hits, pic_url, enable
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -137,12 +139,14 @@
       author, category, reference, 
       descrypt_url, release_time, create_on, 
       module, origin, tags, 
-      view_hits, content)
+      view_hits, pic_url, enable, 
+      content)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{author,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, #{reference,jdbcType=VARCHAR}, 
       #{descryptUrl,jdbcType=VARCHAR}, #{releaseTime,jdbcType=VARCHAR}, #{createOn,jdbcType=BIGINT}, 
       #{module,jdbcType=INTEGER}, #{origin,jdbcType=INTEGER}, #{tags,jdbcType=VARCHAR}, 
-      #{viewHits,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+      #{viewHits,jdbcType=INTEGER}, #{picUrl,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, 
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.water.uubook.model.Article" >
     insert into article
@@ -185,6 +189,12 @@
       </if>
       <if test="viewHits != null" >
         view_hits,
+      </if>
+      <if test="picUrl != null" >
+        pic_url,
+      </if>
+      <if test="enable != null" >
+        enable,
       </if>
       <if test="content != null" >
         content,
@@ -229,6 +239,12 @@
       </if>
       <if test="viewHits != null" >
         #{viewHits,jdbcType=INTEGER},
+      </if>
+      <if test="picUrl != null" >
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=BIT},
       </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
@@ -283,6 +299,12 @@
       <if test="record.viewHits != null" >
         view_hits = #{record.viewHits,jdbcType=INTEGER},
       </if>
+      <if test="record.picUrl != null" >
+        pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enable != null" >
+        enable = #{record.enable,jdbcType=BIT},
+      </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
       </if>
@@ -306,6 +328,8 @@
       origin = #{record.origin,jdbcType=INTEGER},
       tags = #{record.tags,jdbcType=VARCHAR},
       view_hits = #{record.viewHits,jdbcType=INTEGER},
+      pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      enable = #{record.enable,jdbcType=BIT},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -325,7 +349,9 @@
       module = #{record.module,jdbcType=INTEGER},
       origin = #{record.origin,jdbcType=INTEGER},
       tags = #{record.tags,jdbcType=VARCHAR},
-      view_hits = #{record.viewHits,jdbcType=INTEGER}
+      view_hits = #{record.viewHits,jdbcType=INTEGER},
+      pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      enable = #{record.enable,jdbcType=BIT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -369,6 +395,12 @@
       <if test="viewHits != null" >
         view_hits = #{viewHits,jdbcType=INTEGER},
       </if>
+      <if test="picUrl != null" >
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=BIT},
+      </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
@@ -389,6 +421,8 @@
       origin = #{origin,jdbcType=INTEGER},
       tags = #{tags,jdbcType=VARCHAR},
       view_hits = #{viewHits,jdbcType=INTEGER},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      enable = #{enable,jdbcType=BIT},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -405,7 +439,9 @@
       module = #{module,jdbcType=INTEGER},
       origin = #{origin,jdbcType=INTEGER},
       tags = #{tags,jdbcType=VARCHAR},
-      view_hits = #{viewHits,jdbcType=INTEGER}
+      view_hits = #{viewHits,jdbcType=INTEGER},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      enable = #{enable,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select resultMap="ResultMapWithBLOBs" parameterType="com.water.uubook.model.ArticleCriteria" id="selectByExampleWithBLOBsWithRowbounds" >
@@ -439,13 +475,14 @@
     </if>
   </select>
   <insert id="insertBatch" >
-    insert into article (id, title, description, author, category, reference, descrypt_url, release_time, create_on, module, origin, tags, view_hits, content) values 
+    insert into article (id, title, description, author, category, reference, descrypt_url, release_time, create_on, module, origin, tags, view_hits, pic_url, enable, content) values 
     <foreach collection="list" item="item" index="index" separator="," >
       (#{item.id,jdbcType=INTEGER}, #{item.title,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
         #{item.author,jdbcType=VARCHAR}, #{item.category,jdbcType=INTEGER}, #{item.reference,jdbcType=VARCHAR}, 
         #{item.descryptUrl,jdbcType=VARCHAR}, #{item.releaseTime,jdbcType=VARCHAR}, #{item.createOn,jdbcType=BIGINT}, 
         #{item.module,jdbcType=INTEGER}, #{item.origin,jdbcType=INTEGER}, #{item.tags,jdbcType=VARCHAR}, 
-        #{item.viewHits,jdbcType=INTEGER}, #{item.content,jdbcType=LONGVARCHAR})
+        #{item.viewHits,jdbcType=INTEGER}, #{item.picUrl,jdbcType=VARCHAR}, #{item.enable,jdbcType=BIT}, 
+        #{item.content,jdbcType=LONGVARCHAR})
     </foreach>
   </insert>
 </mapper>

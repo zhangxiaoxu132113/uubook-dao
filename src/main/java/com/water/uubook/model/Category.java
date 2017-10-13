@@ -12,7 +12,11 @@ public class Category implements Serializable {
 
     private String description;
 
+    private Boolean enable;
+
     private Date createTime;
+
+    private String picUrl;
 
     private static final long serialVersionUID = 1L;
 
@@ -48,11 +52,27 @@ public class Category implements Serializable {
         this.description = description == null ? null : description.trim();
     }
 
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl == null ? null : picUrl.trim();
     }
 }

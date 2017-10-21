@@ -16,6 +16,8 @@ public class CategoryDto extends Category {
     private String parentName;
     private String createOnStr;
 
+    private List<ArticleDto> hotArticles;
+
     public String getCreateOnStr() {
         return createOnStr;
     }
@@ -54,5 +56,13 @@ public class CategoryDto extends Category {
 
     public void setChildren(List<CategoryDto> children) {
         this.children = children;
+    }
+
+    public List<ArticleDto> getHotArticles() {
+        return hotArticles;
+    }
+
+    public void setHotArticles(List<ArticleDto> hotArticles) {
+        this.hotArticles = hotArticles;
     }
 }

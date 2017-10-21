@@ -8,6 +8,14 @@ import java.util.Date;
  * Created by mrwater on 2017/8/24.
  */
 public final class DateUtil {
+
+    public static Integer HALF_HOUR = 30 * 60;
+    public static Integer ONE_HOUR = 2 * HALF_HOUR;
+    public static Integer TWO_HOUR = 2 * ONE_HOUR;
+    public static Integer HELF_DAY = 12 * ONE_HOUR;
+    public static Integer ONE_DAY = 24 * ONE_HOUR;
+    public static Integer ONE_WEEK = 7 * ONE_DAY;
+
     public static SimpleDateFormat DATE_FORMAT_M = new SimpleDateFormat("MM");
     public static SimpleDateFormat DATE_FORMAT_Y = new SimpleDateFormat("yyyy");
     public static SimpleDateFormat DATE_FORMAT_MD = new SimpleDateFormat("MM-dd");

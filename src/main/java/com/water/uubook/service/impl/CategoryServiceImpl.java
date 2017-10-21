@@ -159,6 +159,22 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.selectByPrimaryKey(categoryId);
     }
 
+    @Override
+    public CategoryDto findpParentCategoryById(Integer categoryId) {
+        CategoryDto categoryDto = null;
+        if (categoryId == null) {
+            throw new RuntimeException("参数不合法!");
+        }
+        List<CategoryDto> categoryDtoList = this.getAllParentCategories();
+        for (CategoryDto categoryDto1 : categoryDtoList) {
+            if (categoryDto1.getId().equals(categoryId)) {
+                categoryDto = categoryDto1;
+            }
+        }
+        return categoryDto;
+    }
+
+
     private Map<Integer, CategoryDto> initializeTagMap() {
         Map<Integer, CategoryDto> categoryMap = new HashMap<>();
         List<CategoryDto> categoryList = categoryMapper.getAllCategory();

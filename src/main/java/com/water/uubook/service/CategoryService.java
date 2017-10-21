@@ -77,4 +77,11 @@ public interface CategoryService {
      * @return
      */
     Category findCategoryById(Integer categoryId);
+
+    /**
+     * 根据id查找父级分类
+     * @param categoryId
+     * @return
+     */
+    CategoryDto findpParentCategoryById(Integer categoryId);
 }

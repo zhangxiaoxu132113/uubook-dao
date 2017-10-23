@@ -3,6 +3,7 @@ package com.water.uubook.utils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by mrwater on 2017/8/24.
@@ -24,6 +25,8 @@ public final class DateUtil {
     public static SimpleDateFormat DATE_FORMAT_YMD_ = new SimpleDateFormat("yyyy_MM_dd");
     public static SimpleDateFormat DATE_FORMAT_YMDHM = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     public static SimpleDateFormat DATE_FORMAT_YMDHMS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static SimpleDateFormat DATE_FORMAT_ZONE = new SimpleDateFormat(
+            "dd/MMM/yyyy:HH:mm:ss Z", new Locale("ENGLISH", "CHINA"));
 
     /**
      * 获取当前时间的0点时分秒

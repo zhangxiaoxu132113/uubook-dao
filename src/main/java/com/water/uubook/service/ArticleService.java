@@ -7,6 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 public interface ArticleService {
+
+    /**
+     * 根据文章id获取文章内容
+     * @param articleId
+     * @return
+     */
+    ArticleDto getArticleDetailById(Integer articleId);
+
     /**
      * 根据条件获取文章列表(分页)
      * @param model

@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Resource;
 
 import com.water.uubook.service.CategoryService;
+import com.water.uubook.service.TagService;
 import com.water.uubook.utils.DateUtil;
 import org.apache.ibatis.ognl.ObjectArrayPool;
 import org.apache.ibatis.session.RowBounds;
@@ -34,6 +35,23 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Resource
     private TagMapper tagMapper;
+
+    @Resource
+    private TagService tagService;
+
+    public ArticleDto getArticleDetailById(Integer articleId) {
+        if (articleId == null || articleId < 0) {
+            throw new RuntimeException("文章id不合法！");
+        }
+        Article article = articleMapper.selectByPrimaryKey(articleId);
+        ArticleDto articleDto = null;
+        if (article != null) {
+            articleDto = new ArticleDto();
+            BeanUtils.copyProperties(article, articleDto);
+            articleDto.setTagList(tagService.findArticleTags(articleDto.getTags())); //设置文章的标签
+        }
+        return articleDto;
+    }
 
     public List<ArticleDto> findArticleListByCondition(ArticleDto model, String[] queryField, Map<String, String> sortMap, int currentPage, int pageSize) {
         if (currentPage < 1 || pageSize < 0) {

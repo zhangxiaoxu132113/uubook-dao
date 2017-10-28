@@ -1,6 +1,7 @@
 package com.water.uubook.service;
 
 import com.water.uubook.model.VideoCourseShop;
+import com.water.uubook.model.dto.VideoCourseShopDto;
 
 import java.util.List;
 
@@ -22,4 +23,11 @@ public interface VideoCourseShopService {
      * @return
      */
     List<VideoCourseShop> findVideoCourseByTags(String... tags);
+
+    /**
+     * 根据id获取视频教程的详情
+     * @param id
+     * @return
+     */
+    VideoCourseShopDto getVideoCourseById(int id);
 }

@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 
 import com.water.uubook.service.CategoryService;
 import com.water.uubook.service.TagService;
+import com.water.uubook.utils.Constants;
 import com.water.uubook.utils.DateUtil;
 import org.apache.ibatis.ognl.ObjectArrayPool;
 import org.apache.ibatis.session.RowBounds;
@@ -169,6 +170,9 @@ public class ArticleServiceImpl implements ArticleService {
                 }
                 if (p.getCreateOn() != null) {
                     p.setCreateOnStr(DateUtil.DATE_FORMAT_YMDHM.format(new Date(p.getCreateOn())));
+                }
+                if (p.getModule() != null) {
+                    p.setModuleStr(Constants.ARTICLE_MODULE_MAP.get(p.getModule()));
                 }
             });
         }

@@ -19,6 +19,7 @@ public class ArticleDto extends Article implements Serializable {
     private Integer parentCategory;
     private String categoryStr;
     private String createOnStr;
+    private String moduleStr;
 
     private Integer tagId;
     private String tagName;
@@ -113,5 +114,13 @@ public class ArticleDto extends Article implements Serializable {
 
     public void setParentCategory(Integer parentCategory) {
         this.parentCategory = parentCategory;
+    }
+
+    public String getModuleStr() {
+        return moduleStr;
+    }
+
+    public void setModuleStr(String moduleStr) {
+        this.moduleStr = moduleStr;
     }
 }

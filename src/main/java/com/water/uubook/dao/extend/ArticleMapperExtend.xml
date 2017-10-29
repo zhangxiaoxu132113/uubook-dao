@@ -31,6 +31,9 @@
                     <if test="col == 'picUrl'">
                         a.pic_url,
                     </if>
+                    <if test="col == 'module'">
+                        a.module,
+                    </if>
                     <if test="col == 'enable'">
                         a.enable,
                     </if>
@@ -49,7 +52,7 @@
             <if test="model.title != null and model.title != ''">
                 AND a.title = #{model.title}
             </if>
-            <if test="model.module != null">
+            <if test="model.module != null and model.module != -1">
                 AND a.module = #{model.module}
             </if>
             <if test="model.category != null">
@@ -58,7 +61,7 @@
             <if test="model.parentCategory != null and model.parentCategory != ''">
                 AND c.parent_id = #{model.parentCategory}
             </if>
-            <if test="model.enable != null">
+            <if test="model.enable != null and model.enable != -1">
                 AND a.enable = #{model.enable}
             </if>
         </if>
@@ -234,13 +237,13 @@
             <if test="model.title != null and model.title != ''">
                 AND title = #{model.title}
             </if>
-            <if test="model.module != null">
+            <if test="model.module != null and model.module != -1">
                 AND module = #{model.module}
             </if>
             <if test="model.category != null">
                 AND category = #{model.category}
             </if>
-            <if test="model.enable != null">
+            <if test="model.enable != null and model.enable != -1">
                 AND enable = #{model.enable}
             </if>
         </if>

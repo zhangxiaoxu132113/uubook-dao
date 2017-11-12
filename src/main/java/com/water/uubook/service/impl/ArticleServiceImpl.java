@@ -3,28 +3,22 @@ package com.water.uubook.service.impl;
 import com.water.uubook.dao.ArticleMapper;
 import com.water.uubook.dao.TagMapper;
 import com.water.uubook.model.Article;
-import com.water.uubook.model.ArticleCriteria;
-import com.water.uubook.model.Category;
 import com.water.uubook.model.Tag;
 import com.water.uubook.model.dto.ArticleDto;
 import com.water.uubook.model.dto.CategoryDto;
 import com.water.uubook.model.dto.TagDto;
 import com.water.uubook.service.ArticleService;
-
-import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import javax.annotation.Resource;
-
 import com.water.uubook.service.CategoryService;
 import com.water.uubook.service.TagService;
 import com.water.uubook.utils.Constants;
 import com.water.uubook.utils.DateUtil;
-import org.apache.ibatis.ognl.ObjectArrayPool;
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 @Service("articleService")
 public class ArticleServiceImpl implements ArticleService {
@@ -110,12 +104,20 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleDto findArticleById(Integer id) {
-        if (id == null) {
-            throw new RuntimeException("id不能唯空！");
+        Article model = null;
+        ArticleDto articleDto = null;
+        try {
+            if (id == null) {
+                throw new RuntimeException("id不能唯空！");
+            }
+            model = articleMapper.selectByPrimaryKey(id);
+            articleDto = new ArticleDto();
+            BeanUtils.copyProperties(model, articleDto);
+            CategoryDto categoryDto = categoryService.getCategoryById(articleDto.getCategory());
+            articleDto.setCategoryDto(categoryDto);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
-        Article model = articleMapper.selectByPrimaryKey(id);
-        ArticleDto articleDto = new ArticleDto();
-        BeanUtils.copyProperties(model, articleDto);
         return articleDto;
     }
 

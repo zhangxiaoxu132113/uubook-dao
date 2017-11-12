@@ -2,10 +2,8 @@ package com.water.uubook.model.dto;
 
 import com.water.uubook.model.Article;
 import com.water.uubook.model.Tag;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,6 +13,8 @@ public class ArticleDto extends Article implements Serializable {
     private List<Article> relatedArticles;
     private List<Tag> tagList;
     private Integer[] ids;
+
+    private CategoryDto categoryDto;
 
     private Integer parentCategory;
     private String categoryStr;
@@ -122,5 +122,14 @@ public class ArticleDto extends Article implements Serializable {
 
     public void setModuleStr(String moduleStr) {
         this.moduleStr = moduleStr;
+    }
+
+    public CategoryDto getCategoryDto() {
+
+        return categoryDto;
+    }
+
+    public void setCategoryDto(CategoryDto categoryDto) {
+        this.categoryDto = categoryDto;
     }
 }

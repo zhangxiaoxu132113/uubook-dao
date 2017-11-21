@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.water.uubook.dao.extend.TbUbBaseMapperExtend">
+    <!--扩展方法-->
+    <select id="getAllTbUbBase" resultType="com.water.uubook.model.TbUbBase">
+       SELECT * FROM tb_ub_base;
+    </select>
+</mapper>

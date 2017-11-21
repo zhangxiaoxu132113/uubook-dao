@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.water.uubook.dao.ITLibMapper" >
-  <resultMap id="BaseResultMap" type="com.water.uubook.model.ITLib" >
+<mapper namespace="com.water.uubook.dao.TbUbBaseMapper">
+  <resultMap id="BaseResultMap" type="com.water.uubook.model.TbUbBase">
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="pic" property="pic" jdbcType="VARCHAR" />
     <result column="bg_pic" property="bgPic" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER"/>
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
     <result column="category" property="category" jdbcType="INTEGER" />
     <result column="create_on" property="createOn" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.water.uubook.model.TbUbBase" extends="BaseResultMap">
+    <result column="content" property="content" jdbcType="LONGVARCHAR"/>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,15 +74,21 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, pic, bg_pic, url, category, create_on
+    id, name, pic, bg_pic, url, level, parent_id, category, create_on
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.water.uubook.model.ITLibCriteria" >
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
+          parameterType="com.water.uubook.model.TbUbBaseCriteria">
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from it_lib
+    ,
+    <include refid="Blob_Column_List"/>
+    from tb_ub_base
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,32 +96,50 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.water.uubook.model.TbUbBaseCriteria">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List"/>
+    from tb_ub_base
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
     select 
     <include refid="Base_Column_List" />
-    from it_lib
+    ,
+    <include refid="Blob_Column_List"/>
+    from tb_ub_base
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from it_lib
+    delete from tb_ub_base
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.water.uubook.model.ITLibCriteria" >
-    delete from it_lib
+  <delete id="deleteByExample" parameterType="com.water.uubook.model.TbUbBaseCriteria">
+    delete from tb_ub_base
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.water.uubook.model.ITLib" >
-    insert into it_lib (id, name, pic, 
-      bg_pic, url, category, 
-      create_on)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, 
-      #{bgPic,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, 
-      #{createOn,jdbcType=BIGINT})
+  <insert id="insert" parameterType="com.water.uubook.model.TbUbBase">
+    insert into tb_ub_base (id, name, pic,
+    bg_pic, url, level,
+    parent_id, category, create_on,
+    content)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR},
+    #{bgPic,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER},
+    #{parentId,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, #{createOn,jdbcType=BIGINT},
+    #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.water.uubook.model.ITLib" >
-    insert into it_lib
+  <insert id="insertSelective" parameterType="com.water.uubook.model.TbUbBase">
+    insert into tb_ub_base
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -127,11 +156,20 @@
       <if test="url != null" >
         url,
       </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
       <if test="category != null" >
         category,
       </if>
       <if test="createOn != null" >
         create_on,
+      </if>
+      <if test="content != null">
+        content,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -150,22 +188,31 @@
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
       </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
       <if test="category != null" >
         #{category,jdbcType=INTEGER},
       </if>
       <if test="createOn != null" >
         #{createOn,jdbcType=BIGINT},
       </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.water.uubook.model.ITLibCriteria" resultType="java.lang.Integer" >
-    select count(*) from it_lib
+  <select id="countByExample" parameterType="com.water.uubook.model.TbUbBaseCriteria" resultType="java.lang.Integer">
+    select count(*) from tb_ub_base
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update it_lib
+    update tb_ub_base
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=VARCHAR},
@@ -182,32 +229,59 @@
       <if test="record.url != null" >
         url = #{record.url,jdbcType=VARCHAR},
       </if>
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=VARCHAR},
+      </if>
       <if test="record.category != null" >
         category = #{record.category,jdbcType=INTEGER},
       </if>
       <if test="record.createOn != null" >
         create_on = #{record.createOn,jdbcType=BIGINT},
       </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update tb_ub_base
+    set id = #{record.id,jdbcType=VARCHAR},
+    name = #{record.name,jdbcType=VARCHAR},
+    pic = #{record.pic,jdbcType=VARCHAR},
+    bg_pic = #{record.bgPic,jdbcType=VARCHAR},
+    url = #{record.url,jdbcType=VARCHAR},
+    level = #{record.level,jdbcType=INTEGER},
+    parent_id = #{record.parentId,jdbcType=VARCHAR},
+    category = #{record.category,jdbcType=INTEGER},
+    create_on = #{record.createOn,jdbcType=BIGINT},
+    content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause"/>
+    </if>
+  </update>
   <update id="updateByExample" parameterType="map" >
-    update it_lib
+    update tb_ub_base
     set id = #{record.id,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       pic = #{record.pic,jdbcType=VARCHAR},
       bg_pic = #{record.bgPic,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
+    level = #{record.level,jdbcType=INTEGER},
+    parent_id = #{record.parentId,jdbcType=VARCHAR},
       category = #{record.category,jdbcType=INTEGER},
       create_on = #{record.createOn,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.water.uubook.model.ITLib" >
-    update it_lib
+  <update id="updateByPrimaryKeySelective" parameterType="com.water.uubook.model.TbUbBase">
+    update tb_ub_base
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -221,32 +295,59 @@
       <if test="url != null" >
         url = #{url,jdbcType=VARCHAR},
       </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
       <if test="category != null" >
         category = #{category,jdbcType=INTEGER},
       </if>
       <if test="createOn != null" >
         create_on = #{createOn,jdbcType=BIGINT},
       </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.water.uubook.model.ITLib" >
-    update it_lib
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.water.uubook.model.TbUbBase">
+    update tb_ub_base
     set name = #{name,jdbcType=VARCHAR},
       pic = #{pic,jdbcType=VARCHAR},
       bg_pic = #{bgPic,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
+    level = #{level,jdbcType=INTEGER},
+    parent_id = #{parentId,jdbcType=VARCHAR},
       category = #{category,jdbcType=INTEGER},
+    create_on = #{createOn,jdbcType=BIGINT},
+    content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.water.uubook.model.TbUbBase">
+    update tb_ub_base
+    set name = #{name,jdbcType=VARCHAR},
+    pic = #{pic,jdbcType=VARCHAR},
+    bg_pic = #{bgPic,jdbcType=VARCHAR},
+    url = #{url,jdbcType=VARCHAR},
+    level = #{level,jdbcType=INTEGER},
+    parent_id = #{parentId,jdbcType=VARCHAR},
+    category = #{category,jdbcType=INTEGER},
       create_on = #{createOn,jdbcType=BIGINT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <select resultMap="BaseResultMap" parameterType="com.water.uubook.model.ITLibCriteria" id="selectByExampleWithRowbounds" >
+  <select resultMap="ResultMapWithBLOBs" parameterType="com.water.uubook.model.TbUbBaseCriteria"
+          id="selectByExampleWithBLOBsWithRowbounds">
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from it_lib
+    ,
+    <include refid="Blob_Column_List"/>
+    from tb_ub_base
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -254,12 +355,28 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select resultMap="BaseResultMap" parameterType="com.water.uubook.model.TbUbBaseCriteria"
+          id="selectByExampleWithRowbounds">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List"/>
+    from tb_ub_base
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <insert id="insertBatch" >
-    insert into it_lib (id, name, pic, bg_pic, url, category, create_on) values 
+    insert into tb_ub_base (id, name, pic, bg_pic, url, level, parent_id, category, create_on, content) values 
     <foreach collection="list" item="item" index="index" separator="," >
-      (#{item.id,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.pic,jdbcType=VARCHAR}, 
-        #{item.bgPic,jdbcType=VARCHAR}, #{item.url,jdbcType=VARCHAR}, #{item.category,jdbcType=INTEGER}, 
-        #{item.createOn,jdbcType=BIGINT})
+      (#{item.id,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.pic,jdbcType=VARCHAR},
+      #{item.bgPic,jdbcType=VARCHAR}, #{item.url,jdbcType=VARCHAR}, #{item.level,jdbcType=INTEGER},
+      #{item.parentId,jdbcType=VARCHAR}, #{item.category,jdbcType=INTEGER}, #{item.createOn,jdbcType=BIGINT},
+      #{item.content,jdbcType=LONGVARCHAR})
     </foreach>
   </insert>
 </mapper>

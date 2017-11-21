@@ -2,7 +2,7 @@ package com.water.uubook.model;
 
 import java.io.Serializable;
 
-public class ITLib implements Serializable {
+public class TbUbBase implements Serializable {
     private String id;
 
     private String name;
@@ -13,9 +13,15 @@ public class ITLib implements Serializable {
 
     private String url;
 
+    private Integer level;
+
+    private String parentId;
+
     private Integer category;
 
     private Long createOn;
+
+    private String content;
 
     private static final long serialVersionUID = 1L;
 
@@ -59,6 +65,22 @@ public class ITLib implements Serializable {
         this.url = url == null ? null : url.trim();
     }
 
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId == null ? null : parentId.trim();
+    }
+
     public Integer getCategory() {
         return category;
     }
@@ -73,5 +95,13 @@ public class ITLib implements Serializable {
 
     public void setCreateOn(Long createOn) {
         this.createOn = createOn;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 }

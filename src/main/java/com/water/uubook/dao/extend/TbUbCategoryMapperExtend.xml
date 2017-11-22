@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.water.uubook.dao.extend.TbUbCategoryMapperExtend">
+    <select id="getAllCategory" resultType="com.water.uubook.model.dto.TbUbCategoryDto">
+        SELECT * FROM (SELECT c.*,count(*) AS total FROM article a
+        LEFT JOIN category c ON a.category = c.id
+        GROUP BY category ORDER BY total desc) AS t
+        UNION
+        SELECT *,0 AS total FROM category  WHERE parent_id = 0
+    </select>
+
+    <select id="getCategoryByCondition" parameterType="java.util.Map"
+            resultType="com.water.uubook.model.dto.TbUbCategoryDto">
+        SELECT c.*,c1.name as parentName,count(a.category) AS total FROM category AS c
+        LEFT JOIN category AS c1 on c.parent_id = c1.id
+        LEFT JOIN article AS a ON c.id = a.category
+        WHERE c.parent_id != 0
+        <if test="model != null">
+            <if test="model.parentId != null">
+                AND c.parent_id = #{model.partentId}
+            </if>
+        </if>
+        GROUP BY a.category ORDER BY c.id ASC
+        <if test="pageSize > 0 and begin >= 0">
+            LIMIT #{begin},#{pageSize}
+        </if>
+    </select>
+</mapper>

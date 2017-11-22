@@ -1,13 +1,13 @@
 package com.water.uubook.model.dto;
 
-import com.water.uubook.model.CourseSubject;
+import com.water.uubook.model.TbUbCourseSubject;
 
 import java.util.List;
 
 /**
  * Created by zhangmiaojie on 2017/5/31.
  */
-public class CourseSubjectDto extends CourseSubject {
+public class CourseSubjectDto extends TbUbCourseSubject {
     private Integer viewTotal;
     private CourseSubjectDto partentCourseSubject;
     private List<CourseSubjectDto> sonCourseSubjectList;

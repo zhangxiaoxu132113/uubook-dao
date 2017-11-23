@@ -65,6 +65,12 @@
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>${dom4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>stax</artifactId>
+                    <groupId>stax</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

@@ -2,6 +2,7 @@ package com.water.uubook.model.dto;
 
 import com.water.uubook.model.TbUbArticle;
 import com.water.uubook.model.TbUbTag;
+import com.water.uubook.utils.annotations.DictDesc;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,6 +18,7 @@ public class TbUbArticleDto extends TbUbArticle implements Serializable {
     private TbUbCategoryDto tbUbCategoryDto;
 
     private Integer parentCategory;
+    @DictDesc(typeName = "storage_type", refField = "category")
     private String categoryStr;
     private String createOnStr;
     private String moduleStr;

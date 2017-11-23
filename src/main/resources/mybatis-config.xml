@@ -6,4 +6,7 @@
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true" /><!-- 用于支持java驼峰映射 -->
     </settings>
+    <plugins>
+        <plugin interceptor="com.water.uubook.utils.mybatis.interceptor.DictInterceptor"></plugin>
+    </plugins>
 </configuration>

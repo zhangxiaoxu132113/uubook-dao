@@ -23,7 +23,7 @@
         </type>
         <type code="storage_type" name="入库类型">
             <item code="0" name="生产入库"/>
-            <item code="1" name="采购入库"/>
+            <item code="71" name="采购入库"/>
             <item code="2" name="退货入库"/>
             <item code="3" name="调拨入库"/>
             <item code="4" name="换包入库"/>

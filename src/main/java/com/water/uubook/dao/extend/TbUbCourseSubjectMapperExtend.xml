@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.water.uubook.dao.extend.TbUbCourseSubjectMapperExtend">
-    <!--扩展方法-->
-    <insert id="insertReturnPrimaryKey" useGeneratedKeys="true" keyProperty="id"
-            parameterType="com.water.uubook.model.TbUbCourseSubject">
-        insert into course_subject (name, description,
-        partent_id, update_time, create_on
-        )
-        values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
-        #{partentId,jdbcType=INTEGER}, #{updateTime,jdbcType=BIGINT}, #{createOn,jdbcType=BIGINT}
-        )
-    </insert>
+    <!--&lt;!&ndash;扩展方法&ndash;&gt;-->
+    <!--<insert id="insertReturnPrimaryKey" useGeneratedKeys="true" keyProperty="id"-->
+    <!--parameterType="com.water.uubook.model.TbUbCourseSubject">-->
+    <!--insert into tb_ub_course_subject (name, description,-->
+    <!--partent_id, update_time, create_on-->
+    <!--)-->
+    <!--values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},-->
+    <!--#{partentId,jdbcType=INTEGER}, #{updateTime,jdbcType=BIGINT}, #{createOn,jdbcType=BIGINT}-->
+    <!--)-->
+    <!--</insert>-->
 
-    <select id="getAllCourseSubject" resultType="com.water.uubook.model.dto.CourseSubjectDto">
-        SELECT * FROM course_subject
-    </select>
+    <!--<select id="getAllCourseSubject" resultType="com.water.uubook.model.dto.CourseSubjectDto">-->
+    <!--SELECT * FROM tb_ub_course_subject-->
+    <!--</select>-->
 
-    <select id="getAllCourseSubjectWithViewHits" resultType="com.water.uubook.model.dto.CourseSubjectDto">
-        select cs.*, t.total from (
-        select c.*,sum(a.view_hits) as total from course c left join article a on c.article_id = a.id
-        where 1=1 group by c.course_subject_id ORDER BY total DESC ) as t
-        right join course_subject cs on cs.id = t.course_subject_id
+    <!--<select id="getAllCourseSubjectWithViewHits" resultType="com.water.uubook.model.dto.CourseSubjectDto">-->
+    <!--select cs.*, t.total from (-->
+    <!--select c.*,sum(a.view_hits) as total from course c left join article a on c.article_id = a.id-->
+    <!--where 1=1 group by c.course_subject_id ORDER BY total DESC ) as t-->
+    <!--right join tb_ub_course_subject cs on cs.id = t.course_subject_id-->
 
-    </select>
+    <!--</select>-->
 
 
-    <select id="getCourseSubjectByExample" parameterType="java.util.Map"
-            resultType="com.water.uubook.model.dto.CourseSubjectDto">
-        SELECT * FROM course_subject WHERE 1=1
-        <if test="courseName != ''">
-            AND name = #{courseName}
-        </if>
-        <if test="partentId != ''">
-            AND partentId = #{partentId}
-        </if>
-        <if test="id != ''">
-            AND id = #{id}
-        </if>
-    </select>
+    <!--<select id="getCourseSubjectByExample" parameterType="java.util.Map"-->
+    <!--resultType="com.water.uubook.model.dto.CourseSubjectDto">-->
+    <!--SELECT * FROM course_subject WHERE 1=1-->
+    <!--<if test="courseName != ''">-->
+    <!--AND name = #{courseName}-->
+    <!--</if>-->
+    <!--<if test="partentId != ''">-->
+    <!--AND partentId = #{partentId}-->
+    <!--</if>-->
+    <!--<if test="id != ''">-->
+    <!--AND id = #{id}-->
+    <!--</if>-->
+    <!--</select>-->
 
 </mapper>

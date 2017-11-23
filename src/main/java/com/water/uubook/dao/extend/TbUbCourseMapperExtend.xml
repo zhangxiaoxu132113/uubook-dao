@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.water.uubook.dao.extend.TbUbCourseMapperExtend">
-    <!--&lt;!&ndash;扩展方法&ndash;&gt;-->
-    <!--<insert id="insertReturnPrimarykey" useGeneratedKeys="true" keyProperty="id"-->
-    <!--parameterType="com.water.uubook.model.TbUbCourse">-->
-    <!--insert into tb_ub_course (article_id, course_subject_id,-->
-    <!--partent_id, title, sort,-->
-    <!--update_time, create_on)-->
-    <!--values (#{articleId,jdbcType=INTEGER}, #{courseSubjectId,jdbcType=INTEGER},-->
-    <!--#{partentId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{sort,jdbcType=TINYINT},-->
-    <!--#{updateTime,jdbcType=BIGINT}, #{createOn,jdbcType=BIGINT})-->
-    <!--</insert>-->
+    <!--扩展方法-->
+    <insert id="insertReturnPrimarykey" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.water.uubook.model.TbUbCourse">
+    insert into tb_ub_course (article_id, course_subject_id,
+    partent_id, title, sort,
+    update_time, create_on)
+    values (#{articleId,jdbcType=INTEGER}, #{courseSubjectId,jdbcType=INTEGER},
+    #{partentId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{sort,jdbcType=TINYINT},
+    #{updateTime,jdbcType=BIGINT}, #{createOn,jdbcType=BIGINT})
+    </insert>
 
-    <!--<select id="getCatalogByCourseName" parameterType="java.lang.String"-->
-    <!--resultType="com.water.uubook.model.dto.TbUbCourseDto">-->
-    <!--SELECT * FROM tb_ub_course WHERE course_subject_id IN (-->
-    <!--SELECT id FROM `course_subject` WHERE name = #{courseName}-->
-    <!--) ORDER BY sort asc;-->
-    <!--</select>-->
+    <select id="getCatalogByCourseName" parameterType="java.lang.String"
+            resultType="com.water.uubook.model.dto.TbUbCourseDto">
+    SELECT * FROM tb_ub_course WHERE course_subject_id IN (
+    SELECT id FROM tb_ub_course_subject WHERE name = #{courseName}
+    ) ORDER BY sort asc;
+    </select>
 </mapper>

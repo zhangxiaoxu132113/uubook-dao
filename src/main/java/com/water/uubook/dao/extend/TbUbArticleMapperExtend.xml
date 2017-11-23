@@ -1,334 +1,334 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.water.uubook.dao.extend.TbUbArticleMapperExtend">
-    <!--&lt;!&ndash;扩展方法&ndash;&gt;-->
-    <!--<select id="findArticleListByCondition" parameterType="java.util.Map"-->
-    <!--resultType="com.water.uubook.model.dto.TbUbArticleDto">-->
-    <!--SELECT-->
-    <!--<choose>-->
-    <!--<when test="cols != null">-->
-    <!--<foreach collection="cols" item="col" index="index">-->
-    <!--<if test="col == 'id'">-->
-    <!--a.id,-->
-    <!--</if>-->
-    <!--<if test="col == 'title'">-->
-    <!--a.title,-->
-    <!--</if>-->
-    <!--<if test="col == 'description'">-->
-    <!--a.description,-->
-    <!--</if>-->
-    <!--<if test="col == 'viewHits'">-->
-    <!--a.view_hits,-->
-    <!--</if>-->
-    <!--<if test="col == 'tags'">-->
-    <!--a.tags,-->
-    <!--</if>-->
-    <!--<if test="col == 'createOn'">-->
-    <!--a.create_on,-->
-    <!--</if>-->
-    <!--<if test="col == 'category'">-->
-    <!--a.category,-->
-    <!--</if>-->
-    <!--<if test="col == 'picUrl'">-->
-    <!--a.pic_url,-->
-    <!--</if>-->
-    <!--<if test="col == 'module'">-->
-    <!--a.module,-->
-    <!--</if>-->
-    <!--<if test="col == 'enable'">-->
-    <!--a.enable,-->
-    <!--</if>-->
-    <!--</foreach>-->
-    <!--""-->
-    <!--</when>-->
-    <!--<otherwise>-->
-    <!--*-->
-    <!--</otherwise>-->
-    <!--</choose>-->
-    <!--FROM tb_ub_article a left join category c on a.category = c.id WHERE 1=1-->
-    <!--<if test="model != null">-->
-    <!--<if test="model.id != null">-->
-    <!--AND a.id = #{model.id}-->
-    <!--</if>-->
-    <!--<if test="model.title != null and model.title != ''">-->
-    <!--AND a.title = #{model.title}-->
-    <!--</if>-->
-    <!--<if test="model.module != null and model.module != -1">-->
-    <!--AND a.module = #{model.module}-->
-    <!--</if>-->
-    <!--<if test="model.category != null">-->
-    <!--AND a.category = #{model.category}-->
-    <!--</if>-->
-    <!--<if test="model.parentCategory != null and model.parentCategory != ''">-->
-    <!--AND c.parent_id = #{model.parentCategory}-->
-    <!--</if>-->
-    <!--<if test="model.enable != null and model.enable != -1">-->
-    <!--AND a.enable = #{model.enable}-->
-    <!--</if>-->
-    <!--</if>-->
+    <!--扩展方法-->
+    <select id="findArticleListByCondition" parameterType="java.util.Map"
+            resultType="com.water.uubook.model.dto.TbUbArticleDto">
+        SELECT
+        <choose>
+            <when test="cols != null">
+                <foreach collection="cols" item="col" index="index">
+                    <if test="col == 'id'">
+                        a.id,
+                    </if>
+                    <if test="col == 'title'">
+                        a.title,
+                    </if>
+                    <if test="col == 'description'">
+                        a.description,
+                    </if>
+                    <if test="col == 'viewHits'">
+                        a.view_hits,
+                    </if>
+                    <if test="col == 'tags'">
+                        a.tags,
+                    </if>
+                    <if test="col == 'createOn'">
+                        a.create_on,
+                    </if>
+                    <if test="col == 'category'">
+                        a.category,
+                    </if>
+                    <if test="col == 'picUrl'">
+                        a.pic_url,
+                    </if>
+                    <if test="col == 'module'">
+                        a.module,
+                    </if>
+                    <if test="col == 'enable'">
+                        a.enable,
+                    </if>
+                </foreach>
+                ""
+            </when>
+            <otherwise>
+                *
+            </otherwise>
+        </choose>
+        FROM tb_ub_article a left join tb_ub_category c on a.category = c.id WHERE 1=1
+        <if test="model != null">
+            <if test="model.id != null">
+                AND a.id = #{model.id}
+            </if>
+            <if test="model.title != null and model.title != ''">
+                AND a.title = #{model.title}
+            </if>
+            <if test="model.module != null and model.module != -1">
+                AND a.module = #{model.module}
+            </if>
+            <if test="model.category != null">
+                AND a.category = #{model.category}
+            </if>
+            <if test="model.parentCategory != null and model.parentCategory != ''">
+                AND c.parent_id = #{model.parentCategory}
+            </if>
+            <if test="model.enable != null and model.enable != -1">
+                AND a.enable = #{model.enable}
+            </if>
+        </if>
 
-    <!--<if test="sortMap != null">-->
-    <!--ORDER BY-->
-    <!--<if test="sortMap.viewHits != null and sortMap.viewHits != ''">-->
-    <!--view_hits ${sortMap.viewHits},-->
-    <!--</if>-->
-    <!--<choose>-->
-    <!--<when test="sortMap.createOn != null and sortMap.createOn != ''">-->
-    <!--create_on ${sortMap.createOn}-->
-    <!--</when>-->
-    <!--<otherwise>-->
-    <!--create_on DESC-->
-    <!--</otherwise>-->
-    <!--</choose>-->
+        <if test="sortMap != null">
+            ORDER BY
+            <if test="sortMap.viewHits != null and sortMap.viewHits != ''">
+                view_hits ${sortMap.viewHits},
+            </if>
+            <choose>
+                <when test="sortMap.createOn != null and sortMap.createOn != ''">
+                    create_on ${sortMap.createOn}
+                </when>
+                <otherwise>
+                    create_on DESC
+                </otherwise>
+            </choose>
 
-    <!--</if>-->
+        </if>
 
 
-    <!--<if test="pageSize > 0 and begin >= 0">-->
-    <!--LIMIT #{begin},#{pageSize}-->
-    <!--</if>-->
-    <!--</select>-->
+        <if test="pageSize > 0 and begin >= 0">
+            LIMIT #{begin},#{pageSize}
+        </if>
+    </select>
 
-    <!--<select id="findArticleListInCategory" parameterType="java.util.Map"-->
-    <!--resultType="com.water.uubook.model.dto.TbUbArticleDto">-->
-    <!--SELECT-->
-    <!--<choose>-->
-    <!--<when test="cols != null">-->
-    <!--<foreach collection="cols" item="col" index="index">-->
-    <!--<if test="col == 'id'">-->
-    <!--id,-->
-    <!--</if>-->
-    <!--<if test="col == 'title'">-->
-    <!--title,-->
-    <!--</if>-->
-    <!--<if test="col == 'viewHits'">-->
-    <!--view_hits,-->
-    <!--</if>-->
-    <!--<if test="col == 'tags'">-->
-    <!--tags,-->
-    <!--</if>-->
-    <!--<if test="col == 'createOn'">-->
-    <!--create_on,-->
-    <!--</if>-->
-    <!--<if test="col == 'category'">-->
-    <!--category,-->
-    <!--</if>-->
-    <!--<if test="col == 'picUrl'">-->
-    <!--pic_url,-->
-    <!--</if>-->
-    <!--<if test="col == 'enable'">-->
-    <!--enable,-->
-    <!--</if>-->
-    <!--</foreach>-->
-    <!--""-->
-    <!--</when>-->
-    <!--<otherwise>-->
-    <!--*-->
-    <!--</otherwise>-->
-    <!--</choose>-->
-    <!--FROM tb_ub_article WHERE 1=1-->
-    <!--<if test="model != null">-->
-    <!--<if test="model.module != null">-->
-    <!--AND module = #{model.module}-->
-    <!--</if>-->
-    <!--<if test="categories != null and categories.size > 0">-->
-    <!--AND category in (-->
-    <!--<foreach collection="categories" item="col" index="index">-->
-    <!--#{col},-->
-    <!--</foreach>-->
-    <!--1000)-->
-    <!--</if>-->
-    <!--</if>-->
+    <select id="findArticleListInCategory" parameterType="java.util.Map"
+            resultType="com.water.uubook.model.dto.TbUbArticleDto">
+        SELECT
+        <choose>
+            <when test="cols != null">
+                <foreach collection="cols" item="col" index="index">
+                    <if test="col == 'id'">
+                        id,
+                    </if>
+                    <if test="col == 'title'">
+                        title,
+                    </if>
+                    <if test="col == 'viewHits'">
+                        view_hits,
+                    </if>
+                    <if test="col == 'tags'">
+                        tags,
+                    </if>
+                    <if test="col == 'createOn'">
+                        create_on,
+                    </if>
+                    <if test="col == 'category'">
+                        category,
+                    </if>
+                    <if test="col == 'picUrl'">
+                        pic_url,
+                    </if>
+                    <if test="col == 'enable'">
+                        enable,
+                    </if>
+                </foreach>
+                ""
+            </when>
+            <otherwise>
+                *
+            </otherwise>
+        </choose>
+        FROM tb_ub_article WHERE 1=1
+        <if test="model != null">
+            <if test="model.module != null">
+                AND module = #{model.module}
+            </if>
+            <if test="categories != null and categories.size > 0">
+                AND category in (
+                <foreach collection="categories" item="col" index="index">
+                    #{col},
+                </foreach>
+                1000)
+            </if>
+        </if>
 
-    <!--<if test="sortMap != null">-->
-    <!--ORDER BY-->
-    <!--<if test="sortMap.viewHits != null and sortMap.viewHits != ''">-->
-    <!--viewHits #{sortMap.viewHits},-->
-    <!--</if>-->
-    <!--<choose>-->
-    <!--<when test="sortMap.createOn != null and sortMap.createOn != ''">-->
-    <!--create_on #{sortMap.createOn},-->
-    <!--</when>-->
-    <!--<otherwise>-->
-    <!--create_on DESC-->
-    <!--</otherwise>-->
-    <!--</choose>-->
+        <if test="sortMap != null">
+            ORDER BY
+            <if test="sortMap.viewHits != null and sortMap.viewHits != ''">
+                viewHits #{sortMap.viewHits},
+            </if>
+            <choose>
+                <when test="sortMap.createOn != null and sortMap.createOn != ''">
+                    create_on #{sortMap.createOn},
+                </when>
+                <otherwise>
+                    create_on DESC
+                </otherwise>
+            </choose>
 
-    <!--</if>-->
-    <!--<if test="pageSize > 0 and begin >= 0">-->
-    <!--LIMIT #{begin},#{pageSize}-->
-    <!--</if>-->
-    <!--</select>-->
+        </if>
+        <if test="pageSize > 0 and begin >= 0">
+            LIMIT #{begin},#{pageSize}
+        </if>
+    </select>
 
-    <!--<select id="findArticleListInIds" parameterType="java.util.Map"-->
-    <!--resultType="com.water.uubook.model.dto.TbUbArticleDto">-->
-    <!--SELECT-->
-    <!--<choose>-->
-    <!--<when test="cols != null">-->
-    <!--<foreach collection="cols" item="col" index="index">-->
-    <!--<if test="col == 'id'">-->
-    <!--id,-->
-    <!--</if>-->
-    <!--<if test="col == 'title'">-->
-    <!--title,-->
-    <!--</if>-->
-    <!--<if test="col == 'viewHits'">-->
-    <!--view_hits,-->
-    <!--</if>-->
-    <!--<if test="col == 'tags'">-->
-    <!--tags,-->
-    <!--</if>-->
-    <!--<if test="col == 'createOn'">-->
-    <!--create_on,-->
-    <!--</if>-->
-    <!--<if test="col == 'category'">-->
-    <!--category,-->
-    <!--</if>-->
-    <!--<if test="col == 'picUrl'">-->
-    <!--pic_url,-->
-    <!--</if>-->
-    <!--<if test="col == 'enable'">-->
-    <!--enable,-->
-    <!--</if>-->
-    <!--</foreach>-->
-    <!--""-->
-    <!--</when>-->
-    <!--<otherwise>-->
-    <!--*-->
-    <!--</otherwise>-->
-    <!--</choose>-->
-    <!--FROM tb_ub_article WHERE 1=1-->
-    <!--<if test="ids != null">-->
-    <!--AND id in (-->
-    <!--<foreach collection="ids" item="col" index="index">-->
-    <!--#{col},-->
-    <!--</foreach>-->
-    <!-- -1)-->
-    <!--</if>-->
-    <!--<if test="model != null">-->
-    <!--<if test="model.module != null">-->
-    <!--AND module = #{model.module}-->
-    <!--</if>-->
-    <!--</if>-->
+    <select id="findArticleListInIds" parameterType="java.util.Map"
+            resultType="com.water.uubook.model.dto.TbUbArticleDto">
+        SELECT
+        <choose>
+            <when test="cols != null">
+                <foreach collection="cols" item="col" index="index">
+                    <if test="col == 'id'">
+                        id,
+                    </if>
+                    <if test="col == 'title'">
+                        title,
+                    </if>
+                    <if test="col == 'viewHits'">
+                        view_hits,
+                    </if>
+                    <if test="col == 'tags'">
+                        tags,
+                    </if>
+                    <if test="col == 'createOn'">
+                        create_on,
+                    </if>
+                    <if test="col == 'category'">
+                        category,
+                    </if>
+                    <if test="col == 'picUrl'">
+                        pic_url,
+                    </if>
+                    <if test="col == 'enable'">
+                        enable,
+                    </if>
+                </foreach>
+                ""
+            </when>
+            <otherwise>
+                *
+            </otherwise>
+        </choose>
+        FROM tb_ub_article WHERE 1=1
+        <if test="ids != null">
+            AND id in (
+            <foreach collection="ids" item="col" index="index">
+                #{col},
+            </foreach>
+            -1)
+        </if>
+        <if test="model != null">
+            <if test="model.module != null">
+                AND module = #{model.module}
+            </if>
+        </if>
 
-    <!--<if test="sortMap != null">-->
-    <!--ORDER BY-->
-    <!--<if test="sortMap.viewHits != null and sortMap.viewHits != ''">-->
-    <!--viewHits #{sortMap.viewHits},-->
-    <!--</if>-->
-    <!--<choose>-->
-    <!--<when test="sortMap.createOn != null and sortMap.createOn != ''">-->
-    <!--create_on #{sortMap.createOn},-->
-    <!--</when>-->
-    <!--<otherwise>-->
-    <!--create_on DESC-->
-    <!--</otherwise>-->
-    <!--</choose>-->
+        <if test="sortMap != null">
+            ORDER BY
+            <if test="sortMap.viewHits != null and sortMap.viewHits != ''">
+                viewHits #{sortMap.viewHits},
+            </if>
+            <choose>
+                <when test="sortMap.createOn != null and sortMap.createOn != ''">
+                    create_on #{sortMap.createOn},
+                </when>
+                <otherwise>
+                    create_on DESC
+                </otherwise>
+            </choose>
 
-    <!--</if>-->
-    <!--<if test="pageSize > 0 and begin >= 0">-->
-    <!--LIMIT #{begin},#{pageSize}-->
-    <!--</if>-->
-    <!--</select>-->
+        </if>
+        <if test="pageSize > 0 and begin >= 0">
+            LIMIT #{begin},#{pageSize}
+        </if>
+    </select>
 
-    <!--<select id="getTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">-->
-    <!--SELECT count(*) FROM tb_ub_article where 1=1-->
-    <!--<if test="model != null">-->
-    <!--<if test="model.id != null">-->
-    <!--AND id = #{model.id}-->
-    <!--</if>-->
-    <!--<if test="model.title != null and model.title != ''">-->
-    <!--AND title = #{model.title}-->
-    <!--</if>-->
-    <!--<if test="model.module != null and model.module != -1">-->
-    <!--AND module = #{model.module}-->
-    <!--</if>-->
-    <!--<if test="model.category != null">-->
-    <!--AND category = #{model.category}-->
-    <!--</if>-->
-    <!--<if test="model.enable != null and model.enable != -1">-->
-    <!--AND enable = #{model.enable}-->
-    <!--</if>-->
-    <!--</if>-->
-    <!--</select>-->
+    <select id="getTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(*) FROM tb_ub_article where 1=1
+        <if test="model != null">
+            <if test="model.id != null">
+                AND id = #{model.id}
+            </if>
+            <if test="model.title != null and model.title != ''">
+                AND title = #{model.title}
+            </if>
+            <if test="model.module != null and model.module != -1">
+                AND module = #{model.module}
+            </if>
+            <if test="model.category != null">
+                AND category = #{model.category}
+            </if>
+            <if test="model.enable != null and model.enable != -1">
+                AND enable = #{model.enable}
+            </if>
+        </if>
+    </select>
 
-    <!--<insert id="insertReturnPrimaryKey" useGeneratedKeys="true" keyProperty="id"-->
-    <!--parameterType="com.water.uubook.model.TbUbArticle">-->
-    <!--insert into tb_ub_article (title, description,-->
-    <!--author, category, reference,-->
-    <!--descrypt_url, release_time, create_on,-->
-    <!--module, origin, tags,-->
-    <!--view_hits, content)-->
-    <!--values (#{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},-->
-    <!--#{author,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, #{reference,jdbcType=VARCHAR},-->
-    <!--#{descryptUrl,jdbcType=VARCHAR}, #{releaseTime,jdbcType=VARCHAR}, #{createOn,jdbcType=BIGINT},-->
-    <!--#{module,jdbcType=INTEGER}, #{origin,jdbcType=INTEGER}, #{tags,jdbcType=VARCHAR},-->
-    <!--#{viewHits,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})-->
-    <!--</insert>-->
+    <insert id="insertReturnPrimaryKey" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.water.uubook.model.TbUbArticle">
+    insert into tb_ub_article (title, description,
+    author, category, reference,
+    descrypt_url, release_time, create_on,
+    module, origin, tags,
+    view_hits, content)
+    values (#{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+    #{author,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, #{reference,jdbcType=VARCHAR},
+    #{descryptUrl,jdbcType=VARCHAR}, #{releaseTime,jdbcType=VARCHAR}, #{createOn,jdbcType=BIGINT},
+    #{module,jdbcType=INTEGER}, #{origin,jdbcType=INTEGER}, #{tags,jdbcType=VARCHAR},
+    #{viewHits,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+    </insert>
 
-    <!--<select id="findArticleListOrderById" parameterType="java.util.Map"-->
-    <!--resultType="com.water.uubook.model.dto.TbUbArticleDto">-->
-    <!--select * from tb_ub_article where 1=1-->
-    <!--<if test="id > 0">-->
-    <!--and id > #{id}-->
-    <!--</if>-->
-    <!--ORDER BY id-->
-    <!--<choose>-->
-    <!--<when test="count > 0">-->
-    <!--LIMIT 0,#{count}-->
-    <!--</when>-->
-    <!--<otherwise>-->
-    <!--limit 0,10-->
-    <!--</otherwise>-->
-    <!--</choose>-->
-    <!--</select>-->
+    <select id="findArticleListOrderById" parameterType="java.util.Map"
+            resultType="com.water.uubook.model.dto.TbUbArticleDto">
+        select * from tb_ub_article where 1=1
+        <if test="id > 0">
+            and id > #{id}
+        </if>
+        ORDER BY id
+        <choose>
+            <when test="count > 0">
+                LIMIT 0,#{count}
+            </when>
+            <otherwise>
+                limit 0,10
+            </otherwise>
+        </choose>
+    </select>
 
-    <!--<select id="findArticleListWithTagByCondition" parameterType="java.util.Map"-->
-    <!--resultType="com.water.uubook.model.dto.TbUbArticleDto">-->
-    <!--SELECT-->
-    <!--<choose>-->
-    <!--<when test="cols != null">-->
-    <!--<foreach collection="cols" item="col" index="index">-->
-    <!--<if test="col == 'id'">-->
-    <!--a.id,-->
-    <!--</if>-->
-    <!--<if test="col == 'title'">-->
-    <!--a.title,-->
-    <!--</if>-->
-    <!--<if test="col == 'viewHits'">-->
-    <!--a.view_hits,-->
-    <!--</if>-->
-    <!--<if test="col == 'tags'">-->
-    <!--a.tags,-->
-    <!--</if>-->
-    <!--<if test="col == 'createOn'">-->
-    <!--a.create_on,-->
-    <!--</if>-->
-    <!--<if test="col == 'category'">-->
-    <!--a.category,-->
-    <!--</if>-->
-    <!--<if test="col == 'picUrl'">-->
-    <!--a.pic_url,-->
-    <!--</if>-->
-    <!--<if test="col == 'enable'">-->
-    <!--a.enable,-->
-    <!--</if>-->
-    <!--</foreach>-->
-    <!--""-->
-    <!--</when>-->
-    <!--<otherwise>-->
-    <!--*-->
-    <!--</otherwise>-->
-    <!--</choose>-->
-    <!--from tb_ub_article a left join tb_ub_tag_article ta on a.id = ta.article_id-->
-    <!--left join tag t on t.id = ta.tag_id where 1=1-->
-    <!--<if test="model != null">-->
-    <!--<if test="model.tagName != null">-->
-    <!--AND t.name = #{model.tagName}-->
-    <!--</if>-->
-    <!--</if>-->
-    <!--<if test="pageSize > 0 and begin >= 0">-->
-    <!--LIMIT #{begin},#{pageSize}-->
-    <!--</if>-->
-    <!--</select>-->
+    <select id="findArticleListWithTagByCondition" parameterType="java.util.Map"
+            resultType="com.water.uubook.model.dto.TbUbArticleDto">
+        SELECT
+        <choose>
+            <when test="cols != null">
+                <foreach collection="cols" item="col" index="index">
+                    <if test="col == 'id'">
+                        a.id,
+                    </if>
+                    <if test="col == 'title'">
+                        a.title,
+                    </if>
+                    <if test="col == 'viewHits'">
+                        a.view_hits,
+                    </if>
+                    <if test="col == 'tags'">
+                        a.tags,
+                    </if>
+                    <if test="col == 'createOn'">
+                        a.create_on,
+                    </if>
+                    <if test="col == 'category'">
+                        a.category,
+                    </if>
+                    <if test="col == 'picUrl'">
+                        a.pic_url,
+                    </if>
+                    <if test="col == 'enable'">
+                        a.enable,
+                    </if>
+                </foreach>
+                ""
+            </when>
+            <otherwise>
+                *
+            </otherwise>
+        </choose>
+        from tb_ub_article a left join tb_ub_tag_article ta on a.id = ta.article_id
+        left join tag t on t.id = ta.tag_id where 1=1
+        <if test="model != null">
+            <if test="model.tagName != null">
+                AND t.name = #{model.tagName}
+            </if>
+        </if>
+        <if test="pageSize > 0 and begin >= 0">
+            LIMIT #{begin},#{pageSize}
+        </if>
+    </select>
 </mapper>

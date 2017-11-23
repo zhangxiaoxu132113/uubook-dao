@@ -20,6 +20,8 @@
         <junit.version>4.11</junit.version>
         <quartz.version>1.8.6</quartz.version>
         <druid.version>1.0.9</druid.version>
+        <dom4j.version>1.5.1</dom4j.version>
+        <guave.version>17.0</guave.version>
         <spring.boot.version>1.1.4.RELEASE</spring.boot.version>
     </properties>
 
@@ -51,13 +53,18 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>17.0</version>
+            <version>${guave.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>${dom4j.version}</version>
         </dependency>
     </dependencies>
 

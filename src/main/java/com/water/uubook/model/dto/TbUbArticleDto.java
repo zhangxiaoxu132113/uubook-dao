@@ -18,9 +18,9 @@ public class TbUbArticleDto extends TbUbArticle implements Serializable {
     private TbUbCategoryDto tbUbCategoryDto;
 
     private Integer parentCategory;
-    @DictDesc(typeName = "storage_type", refField = "category")
     private String categoryStr;
     private String createOnStr;
+    @DictDesc(typeName = "ARTICLE_MODULE", refField = "module")
     private String moduleStr;
 
     private Integer tagId;

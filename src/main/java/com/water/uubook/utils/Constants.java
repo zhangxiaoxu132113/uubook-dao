@@ -27,13 +27,21 @@ public class Constants {
     }
 
     public static enum ARTICLE_MODULE {
-        BLOG(0, "技术博文"),
-        ZI_XUN(1, "资讯"),
-        TOU_TIAO(11, "头条"),
-        RUANJIAN_GENGXIN(12, "软件更新"),
-        IT_HANGYE(13, "IT行业"),
-        JIAO_CHENG(3, "教程"),
-        ZHI_SHI_KU(4, "知识库");
+        E_BLOG(0, "技术博文"),
+        E_ZI_XUN(1, "资讯"),
+        E_TOU_TIAO(11, "头条"),
+        E_RUANJIAN_GENGXIN(12, "软件更新"),
+        E_IT_HANGYE(13, "IT行业"),
+        E_JIAO_CHENG(3, "教程"),
+        E_ZHI_SHI_KU(4, "知识库");
+
+        public static final Integer BLOG = 0;
+        public static final Integer ZI_XUN = 1;
+        public static final Integer TOU_TIAO = 11;
+        public static final Integer RUANJIAN_GENGXIN = 12;
+        public static final Integer IT_HANGYE = 13;
+        public static final Integer JIAO_CHENG = 3;
+        public static final Integer ZHI_SHI_KU = 4;
 
         public static String getName(int index) {
             for (ARTICLE_MODULE item : ARTICLE_MODULE.values()) {

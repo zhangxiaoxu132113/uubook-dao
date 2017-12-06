@@ -51,4 +51,8 @@ public interface TbUbArticleService {
      * @return
      */
     List<TbUbArticleDto> findArticleListInIds(String[] cols, Integer[] ids);
+
+    TbUbArticle selectByPrimaryKey(Integer articleId);
+
+    void updateByPrimaryKeySelective(TbUbArticle article);
 }

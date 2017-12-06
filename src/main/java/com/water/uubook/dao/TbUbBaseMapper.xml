@@ -8,6 +8,7 @@
     <result column="bg_pic" property="bgPic" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="level" property="level" jdbcType="INTEGER"/>
+    <result column="category_id" property="categoryId" jdbcType="INTEGER"/>
     <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
     <result column="category" property="category" jdbcType="INTEGER" />
     <result column="create_on" property="createOn" jdbcType="BIGINT" />
@@ -74,7 +75,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, pic, bg_pic, url, level, parent_id, category, create_on
+    id, name, pic, bg_pic, url, level, category_id, parent_id, category, create_on
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -131,12 +132,12 @@
   <insert id="insert" parameterType="com.water.uubook.model.TbUbBase">
     insert into tb_ub_base (id, name, pic,
     bg_pic, url, level,
-    parent_id, category, create_on,
-    content)
+    category_id, parent_id, category,
+    create_on, content)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR},
     #{bgPic,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER},
-    #{parentId,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, #{createOn,jdbcType=BIGINT},
-    #{content,jdbcType=LONGVARCHAR})
+    #{categoryId,jdbcType=INTEGER}, #{parentId,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER},
+    #{createOn,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.water.uubook.model.TbUbBase">
     insert into tb_ub_base
@@ -158,6 +159,9 @@
       </if>
       <if test="level != null">
         level,
+      </if>
+      <if test="categoryId != null">
+        category_id,
       </if>
       <if test="parentId != null">
         parent_id,
@@ -190,6 +194,9 @@
       </if>
       <if test="level != null">
         #{level,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
       </if>
       <if test="parentId != null">
         #{parentId,jdbcType=VARCHAR},
@@ -232,6 +239,9 @@
       <if test="record.level != null">
         level = #{record.level,jdbcType=INTEGER},
       </if>
+      <if test="record.categoryId != null">
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
       <if test="record.parentId != null">
         parent_id = #{record.parentId,jdbcType=VARCHAR},
       </if>
@@ -257,6 +267,7 @@
     bg_pic = #{record.bgPic,jdbcType=VARCHAR},
     url = #{record.url,jdbcType=VARCHAR},
     level = #{record.level,jdbcType=INTEGER},
+    category_id = #{record.categoryId,jdbcType=INTEGER},
     parent_id = #{record.parentId,jdbcType=VARCHAR},
     category = #{record.category,jdbcType=INTEGER},
     create_on = #{record.createOn,jdbcType=BIGINT},
@@ -273,6 +284,7 @@
       bg_pic = #{record.bgPic,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
     level = #{record.level,jdbcType=INTEGER},
+    category_id = #{record.categoryId,jdbcType=INTEGER},
     parent_id = #{record.parentId,jdbcType=VARCHAR},
       category = #{record.category,jdbcType=INTEGER},
       create_on = #{record.createOn,jdbcType=BIGINT}
@@ -298,6 +310,9 @@
       <if test="level != null">
         level = #{level,jdbcType=INTEGER},
       </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
       <if test="parentId != null">
         parent_id = #{parentId,jdbcType=VARCHAR},
       </if>
@@ -320,6 +335,7 @@
       bg_pic = #{bgPic,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
     level = #{level,jdbcType=INTEGER},
+    category_id = #{categoryId,jdbcType=INTEGER},
     parent_id = #{parentId,jdbcType=VARCHAR},
       category = #{category,jdbcType=INTEGER},
     create_on = #{createOn,jdbcType=BIGINT},
@@ -333,6 +349,7 @@
     bg_pic = #{bgPic,jdbcType=VARCHAR},
     url = #{url,jdbcType=VARCHAR},
     level = #{level,jdbcType=INTEGER},
+    category_id = #{categoryId,jdbcType=INTEGER},
     parent_id = #{parentId,jdbcType=VARCHAR},
     category = #{category,jdbcType=INTEGER},
       create_on = #{createOn,jdbcType=BIGINT}
@@ -371,12 +388,13 @@
     </if>
   </select>
   <insert id="insertBatch" >
-    insert into tb_ub_base (id, name, pic, bg_pic, url, level, parent_id, category, create_on, content) values 
+    insert into tb_ub_base (id, name, pic, bg_pic, url, level, category_id, parent_id, category, create_on, content)
+    values
     <foreach collection="list" item="item" index="index" separator="," >
       (#{item.id,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.pic,jdbcType=VARCHAR},
       #{item.bgPic,jdbcType=VARCHAR}, #{item.url,jdbcType=VARCHAR}, #{item.level,jdbcType=INTEGER},
-      #{item.parentId,jdbcType=VARCHAR}, #{item.category,jdbcType=INTEGER}, #{item.createOn,jdbcType=BIGINT},
-      #{item.content,jdbcType=LONGVARCHAR})
+      #{item.categoryId,jdbcType=INTEGER}, #{item.parentId,jdbcType=VARCHAR}, #{item.category,jdbcType=INTEGER},
+      #{item.createOn,jdbcType=BIGINT}, #{item.content,jdbcType=LONGVARCHAR})
     </foreach>
   </insert>
 </mapper>

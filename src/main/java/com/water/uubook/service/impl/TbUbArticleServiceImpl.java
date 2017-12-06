@@ -157,6 +157,16 @@ public class TbUbArticleServiceImpl implements TbUbArticleService {
         return tbUbArticleDtoList;
     }
 
+    @Override
+    public TbUbArticle selectByPrimaryKey(Integer articleId) {
+        return articleMapper.selectByPrimaryKey(articleId);
+    }
+
+    @Override
+    public void updateByPrimaryKeySelective(TbUbArticle article) {
+        articleMapper.updateByPrimaryKeySelective(article);
+    }
+
     /**
      * 将文章列表的数据进行细节的处理
      * @param tbUbArticleDtos

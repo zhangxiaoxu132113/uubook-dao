@@ -42,4 +42,6 @@ public interface TbUbTagService {
      * @return
      */
     int updateTag(TbUbTag model);
+
+    List<TbUbTag> getAllTbUbTag();
 }

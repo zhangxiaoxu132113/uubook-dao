@@ -96,6 +96,11 @@ public class TbUbTagServiceImpl implements TbUbTagService {
         return tagMapper.updateByPrimaryKeySelective(model);
     }
 
+    @Override
+    public List<TbUbTag> getAllTbUbTag() {
+        return tagMapper.selectByExample(null);
+    }
+
     private Map<Integer, TbUbTag> initializeTagMap() {
         List<TbUbTag> tagList = tagMapper.selectByExample(null);
         Map<Integer, TbUbTag> tagMap = new HashMap<>();

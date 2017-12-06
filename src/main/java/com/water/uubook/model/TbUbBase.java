@@ -15,6 +15,8 @@ public class TbUbBase implements Serializable {
 
     private Integer level;
 
+    private Integer categoryId;
+
     private String parentId;
 
     private Integer category;
@@ -71,6 +73,14 @@ public class TbUbBase implements Serializable {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getParentId() {

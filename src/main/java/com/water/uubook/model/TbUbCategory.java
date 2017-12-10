@@ -18,6 +18,8 @@ public class TbUbCategory implements Serializable {
 
     private String picUrl;
 
+    private String bgPicUrl;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -74,5 +76,13 @@ public class TbUbCategory implements Serializable {
 
     public void setPicUrl(String picUrl) {
         this.picUrl = picUrl == null ? null : picUrl.trim();
+    }
+
+    public String getBgPicUrl() {
+        return bgPicUrl;
+    }
+
+    public void setBgPicUrl(String bgPicUrl) {
+        this.bgPicUrl = bgPicUrl == null ? null : bgPicUrl.trim();
     }
 }

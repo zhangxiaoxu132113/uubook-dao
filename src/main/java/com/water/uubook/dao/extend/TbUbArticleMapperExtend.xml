@@ -321,7 +321,7 @@
             </otherwise>
         </choose>
         from tb_ub_article a left join tb_ub_tag_article ta on a.id = ta.article_id
-        left join tag t on t.id = ta.tag_id where 1=1
+        left join tb_ub_tag t on t.id = ta.tag_id where 1=1
         <if test="model != null">
             <if test="model.tagName != null">
                 AND t.name = #{model.tagName}

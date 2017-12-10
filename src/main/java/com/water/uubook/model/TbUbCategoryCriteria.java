@@ -554,6 +554,76 @@ public class TbUbCategoryCriteria {
             addCriterion("pic_url not between", value1, value2, "picUrl");
             return (Criteria) this;
         }
+
+        public Criteria andBgPicUrlIsNull() {
+            addCriterion("bg_pic_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgPicUrlIsNotNull() {
+            addCriterion("bg_pic_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgPicUrlEqualTo(String value) {
+            addCriterion("bg_pic_url =", value, "bgPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgPicUrlNotEqualTo(String value) {
+            addCriterion("bg_pic_url <>", value, "bgPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgPicUrlGreaterThan(String value) {
+            addCriterion("bg_pic_url >", value, "bgPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgPicUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("bg_pic_url >=", value, "bgPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgPicUrlLessThan(String value) {
+            addCriterion("bg_pic_url <", value, "bgPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgPicUrlLessThanOrEqualTo(String value) {
+            addCriterion("bg_pic_url <=", value, "bgPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgPicUrlLike(String value) {
+            addCriterion("bg_pic_url like", value, "bgPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgPicUrlNotLike(String value) {
+            addCriterion("bg_pic_url not like", value, "bgPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgPicUrlIn(List<String> values) {
+            addCriterion("bg_pic_url in", values, "bgPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgPicUrlNotIn(List<String> values) {
+            addCriterion("bg_pic_url not in", values, "bgPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgPicUrlBetween(String value1, String value2) {
+            addCriterion("bg_pic_url between", value1, value2, "bgPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgPicUrlNotBetween(String value1, String value2) {
+            addCriterion("bg_pic_url not between", value1, value2, "bgPicUrl");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

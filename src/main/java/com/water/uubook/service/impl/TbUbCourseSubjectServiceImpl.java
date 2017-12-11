@@ -121,7 +121,7 @@ public class TbUbCourseSubjectServiceImpl implements TbUbCourseSubjectService {
     public List<CourseSubjectDto> getHotCourseSubjectWithSize(int size) {
         try {
             List<CourseSubjectDto> tmpList = (List<CourseSubjectDto>) cacheLocal.get(Constants.CacheKey.ALL_COURSE_SUBJECT);
-            tmpList = tmpList.stream().filter(p -> p.getPartentId() != null).collect(Collectors.toList());
+            tmpList = tmpList.stream().filter(p -> p.getPartentId() != 0).collect(Collectors.toList());
             if (tmpList != null && tmpList.size() > size) {
                 return tmpList.subList(0 , size);
             }
